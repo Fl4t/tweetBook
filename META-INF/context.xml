@@ -1,1 +1,46 @@
-<Context path="/tweetbook" privileged="true" reloadable="true" />
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/tweetbook" privileged="true" reloadable="true">
+
+  <!--logger-->
+  <Logger
+    className="org.apache.catalina.looger.FileLogger"
+    directory="webapps/tweetbook/WEB-INF/log/"
+    prefix="tweetbook_log."
+    suffix=".txt"
+    timestamp="true"
+    />
+
+  <!--pool-->
+  <Resource
+    auth="Container"
+    driverClassName="org.sqlite.JDBC"
+    maxActive="4"
+    maxIdle="2"
+    maxWait="10000"
+    name="auth"
+    type="javax.sql.DataSource"
+    url="jdbc:sqlite:/Users/warez/tomcat/webapps/tweetbook/auth.db"
+    />
+
+  <!-- Definition du Realm via le pool -->
+  <Realm
+    className="org.apache.catalina.realm.DataSourceRealm"
+    debug="99"
+    dataSourceName="auth"
+    localDataSource="true"
+    userTable="authentification"
+    userNameCol="login"
+    userCredCol="password"
+    userRoleTable="authentification"
+    roleNameCol="role"
+    />
+
+  <!-- Definition d'une valve d'acces -->
+  <Valve
+    className="org.apache.catalina.valves.AccessLogValve"
+    pattern="common"
+    prefix="vide_evolue_access1."
+    suffix=".txt"
+    />
+
+</Context>

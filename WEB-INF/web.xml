@@ -5,20 +5,10 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
   version="3.0">
 
-<!--
-  <servlet>
-      <servlet-name>Test</servlet-name>
-      <servlet-class>Test</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-      <servlet-name>Test</servlet-name>
-      <url-pattern>/servlet/Test</url-pattern>
-  </servlet-mapping>
--->
+<!-- Controleurs -->
   <servlet>
       <servlet-name>Controleur</servlet-name>
-      <servlet-class>tweetbook.controleur.Controleur</servlet-class>
+      <servlet-class>controleurs.Controleur</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -26,4 +16,51 @@
       <url-pattern>/index.html</url-pattern>
   </servlet-mapping>
 
+  <!--       Recuperation des erreurs      -->
+  <!-- A commenter lors des mises au point -->
+  <error-page>
+    <error-code>403</error-code>
+    <location>/vues/erreur.jsp?message=Cette page ne vous est pas accessible</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/vues/erreur.jsp?message=Page inexistante</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/vues/erreur.jsp?message=BDD ou Beans inaccessibles</location>
+  </error-page>
+
+  <session-config>
+      <session-timeout>30</session-timeout>
+  </session-config>
+
+  <welcome-file-list>
+      <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
+  <!--  Lien entre les pages et les roles -->
+  <security-constraint>
+   <web-resource-collection>
+     <url-pattern>/vues/auth/*</url-pattern>
+   </web-resource-collection>
+    <auth-constraint>
+       <role-name>role1</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <!-- La maniere dont la page de login est affichee -->
+  <!--<login-config>-->
+    <!--<auth-method>FORM</auth-method>-->
+    <!--<realm-name></realm-name>-->
+    <!--<form-login-config>-->
+      <!--<form-login-page>/WEB-INF/vues/connexion.jsp</form-login-page>-->
+      <!--<form-error-page>/WEB-INF/vues/erreur.jsp</form-error-page>-->
+    <!--</form-login-config>-->
+  <!--</login-config>-->
+
+  <!-- La liste des differents roles -->
+  <security-role>
+    <role-name>role1</role-name>
+  </security-role>
 </web-app>
