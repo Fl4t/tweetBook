@@ -4,8 +4,8 @@
   <head>
     <meta charset="UTF-8">
     <title>tweetBook</title>
-    <link href="<%= request.getContextPath() %>/ressources/stylesheets/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="${pageContext.request.contextPath}/ressources/stylesheets/bootstrap.css" rel="stylesheet" media="screen">
   </head>
   <body>
-    <script src="ressources/javascripts/bootstrap.js"></script>
-    <script src="ressources/javascripts/jquery.js"></script>
+        <script src="${pageContext.request.contextPath}/ressources/javascripts/bootstrap.js"></script>
+        <script src="${pageContext.request.contextPath}/ressources/javascripts/jquery.js"></script>
