@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="erreur.jsp" %>
 <jsp:include page="header.jsp"/>
 
-${requestScope['context_path']}
 
   <form action="index.html?id=login" method="post" accept-charset="utf-8">
     <label for="login">Login :</label>
