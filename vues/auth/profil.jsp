@@ -2,6 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../header.jsp"/>
 
-<h1>Administration</h1>
+<h1>Profil</h1>
 
 <jsp:include page="../footer.jsp"/>
