@@ -1,11 +1,13 @@
 package modeles;
 
+import java.util.Date;
+
 public class Personne {
 
   int id_personne;
   String nom;
   String prenom;
-  String date_naissance;
+  Date date_naissance;
   String email;
   String visibilite;
 
@@ -24,7 +26,7 @@ public class Personne {
     this.prenom = prenom;
   }
 
-  public void setDate_naissance(String date_naissance) {
+  public void setDate_naissance(Date date_naissance) {
     this.date_naissance = date_naissance;
   }
 
@@ -51,7 +53,7 @@ public class Personne {
     return this.prenom;
   }
 
-  public String getDate_naissance() {
+  public Date getDate_naissance() {
     return this.date_naissance;
   }
 
