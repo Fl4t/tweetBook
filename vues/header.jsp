@@ -15,3 +15,15 @@
     <div class="container">
         <script src="${pageContext.request.contextPath}/ressources/javascripts/bootstrap.js"></script>
         <script src="${pageContext.request.contextPath}/ressources/javascripts/jquery.js"></script>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <a class="brand" href="${pageContext.request.contextPath}/index.html?id=actualitees">TweetBook</a>
+            <ul class="nav">
+              <li><a href="${pageContext.request.contextPath}/index.html?id=actualitees">Fil d'actualitées</a></li>
+              <li><a href="${pageContext.request.contextPath}/index.html?id=mur">Mur</a></li>
+              <li><a href="${pageContext.request.contextPath}/index.html?id=amis">Amis</a></li>
+              <li><a href="${pageContext.request.contextPath}/index.html?id=profil">Profil</a></li>
+            </ul>
+          </div>
+        </div>
+        <div>
