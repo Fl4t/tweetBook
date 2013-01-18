@@ -13,6 +13,8 @@ import bdd.*;
 
 public class Controleur extends HttpServlet {
 
+  private static final String VUE_NOUVEAU = "/vues/nouveau.jsp";
+
   private static final String VUE_ACTUALITE = "/vues/auth/actualitees.jsp";
   private static final String VUE_ADMIN = "/vues/auth/admin.jsp";
   private static final String VUE_MUR = "/vues/auth/mur.jsp";
@@ -67,6 +69,12 @@ public class Controleur extends HttpServlet {
        */
     } else if (redirection.equals("profil")) {
       response.sendRedirect(request.getContextPath() + VUE_PROFIL);
+
+    /*
+     * Nouvel utilisateur
+     */
+    } else if (redirection.equals("nouveau")) {
+      response.sendRedirect(request.getContextPath() + VUE_NOUVEAU);
     }
   }
 }
