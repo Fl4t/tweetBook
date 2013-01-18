@@ -20,7 +20,7 @@
     <input type="submit" name="valider" id="valider" value="Valider" /><br />
   </form>
 
-  <p>Nouveau ? <a href="index.html?id=nouveau">Créez un compte.</a></p>
+  <p>Nouveau ? <a href="${pageContext.request.contextPath}/index.html?id=nouveau">Créez un compte.</a></p>
 
 </div>
 
