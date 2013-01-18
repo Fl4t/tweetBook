@@ -12,8 +12,11 @@ import bdd.*;
 
 public class Controleur extends HttpServlet {
 
-  public static final String VUE_ACTUALITE = "/vues/auth/actualites.jsp";
-  public static final String VUE_CONNEXION = "/vues/connexion.jsp";
+  private static final String VUE_ACTUALITE = "/vues/auth/actualitees.jsp";
+  private static final String VUE_ADMIN = "/vues/auth/admin.jsp";
+  private static final String VUE_MUR = "/vues/auth/mur.jsp";
+  private static final String VUE_AMIS = "/vues/auth/amis.jsp";
+  private static final String VUE_PROFIL = "/vues/auth/profil.jsp";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
