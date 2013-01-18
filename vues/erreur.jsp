@@ -3,12 +3,14 @@
 
 <h1>Holy shit !</h1>
 
+<c:if test="${not empty param.message}">
 <div class="alert">
   Un probleme de type "${param.message}" est survenu.
 </div>
+</c:if>
 
 <% if (exception != null) { %>
-  <code><%= exception.getMessage() %></code>
+  <%= exception.getMessage() %>
 <% } %>
 
 <jsp:include page="footer.jsp"/>
