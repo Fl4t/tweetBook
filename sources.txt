@@ -1,0 +1,7 @@
+./WEB-INF/classes/bdd/ModeleActualite.java
+./WEB-INF/classes/bdd/ModeleAmi.java
+./WEB-INF/classes/bdd/ModelePersonne.java
+./WEB-INF/classes/controleurs/Controleur.java
+./WEB-INF/classes/modeles/Actualite.java
+./WEB-INF/classes/modeles/Ami.java
+./WEB-INF/classes/modeles/Personne.java
