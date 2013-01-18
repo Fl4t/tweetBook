@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bdd.*;
+
 public class Controleur extends HttpServlet {
 
   public static final String VUE_ACTUALITE = "/vues/auth/actualites.jsp";
@@ -16,19 +18,56 @@ public class Controleur extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
   {
-    RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_CONNEXION);
-    rd.forward(request, response);
-	}
+    String redirection = request.getParameter("id");
 
   public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
   {
-    // Si l'utilisateur tente de s'authentifier
-    if (request.getParameter("id").equals("login")) {
+    /*
+     *Connexion
+     */
+    if (redirection == null)  {
       RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_ACTUALITE);
       rd.forward(request, response);
-    } else {
-      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_CONNEXION);
+
+      /*
+       *Actualitées
+       */
+    } else if (redirection.equals("actualitees")) {
+      ModeleActualite actualitees = new ModeleActualite();
+      actualitees.initialize();
+      actualitees.execute();
+      request.setAttribute("actualitees", actualitees.getListe());
+      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_ACTUALITE);
+      rd.forward(request, response);
+
+      /*
+       *Mur
+       */
+    } else if (redirection.equals("mur")) {
+      ModeleActualite actualitees = new ModeleActualite();
+      actualitees.initialize();
+      actualitees.execute();
+      request.setAttribute("actualitees", actualitees.getListe());
+      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_MUR);
+      rd.forward(request, response);
+
+      /*
+       *Si l'utilisateur accede à sa page d'amis
+       */
+    } else if (redirection.equals("amis")) {
+      ModeleAmi amis = new ModeleAmi();
+      amis.initialize();
+      amis.execute();
+      request.setAttribute("amis", amis.getListe());
+      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_AMIS);
+      rd.forward(request, response);
+
+      /*
+       *Si l'utilisateur accede à sa page d'admin
+       */
+    } else if (redirection.equals("profil")) {
+      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_PROFIL);
       rd.forward(request, response);
     }
   }
