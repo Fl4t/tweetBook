@@ -18,14 +18,11 @@ public class Controleur extends HttpServlet {
   private static final String VUE_AMIS = "/vues/auth/amis.jsp";
   private static final String VUE_PROFIL = "/vues/auth/profil.jsp";
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
+  public void service(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
   {
     String redirection = request.getParameter("id");
 
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException
-  {
     /*
      *Connexion
      */
