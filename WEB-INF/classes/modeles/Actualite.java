@@ -34,7 +34,7 @@ public class Actualite {
     return this.contenu;
   }
 
-  public Date getDate() {
+  public Date getDate_ajout() {
     return this.date_ajout;
   }
 }
