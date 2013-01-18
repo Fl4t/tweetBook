@@ -39,7 +39,7 @@
   <Valve
     className="org.apache.catalina.valves.AccessLogValve"
     pattern="common"
-    prefix="vide_evolue_access1."
+    prefix="tweetbook."
     suffix=".txt"
     />
 
