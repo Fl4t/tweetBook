@@ -15,6 +15,10 @@ public class Ami {
     this.id_personne1 = id_personne1;
   }
 
+  public void setId_personne2(int id_personne2) {
+    this.id_personne1 = id_personne1;
+  }
+
   public void setDate_ajout(Date date_ajout) {
     this.date_ajout = date_ajout;
   }
@@ -24,6 +28,10 @@ public class Ami {
    */
   public int getId_personne1() {
     return this.id_personne1;
+  }
+
+  public int getId_personne2() {
+    return this.id_personne2;
   }
 
   public Date getDate_ajout() {
