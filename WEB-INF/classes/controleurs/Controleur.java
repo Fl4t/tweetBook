@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,14 +22,15 @@ public class Controleur extends HttpServlet {
   public void service(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
   {
+
+    HttpSession session = request.getSession(true);
     String redirection = request.getParameter("id");
 
     /*
      *Connexion
      */
     if (redirection == null)  {
-      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_ACTUALITE);
-      rd.forward(request, response);
+      response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       /*
        *Actualitées
@@ -37,9 +39,8 @@ public class Controleur extends HttpServlet {
       ModeleActualite actualitees = new ModeleActualite();
       actualitees.initialize();
       actualitees.execute();
-      request.setAttribute("actualitees", actualitees.getListe());
-      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_ACTUALITE);
-      rd.forward(request, response);
+      session.setAttribute("actualitees", actualitees.getListe());
+      response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       /*
        *Mur
@@ -48,9 +49,8 @@ public class Controleur extends HttpServlet {
       ModeleActualite actualitees = new ModeleActualite();
       actualitees.initialize();
       actualitees.execute();
-      request.setAttribute("actualitees", actualitees.getListe());
-      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_MUR);
-      rd.forward(request, response);
+      session.setAttribute("actualitees", actualitees.getListe());
+      response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       /*
        *Si l'utilisateur accede à sa page d'amis
@@ -59,16 +59,14 @@ public class Controleur extends HttpServlet {
       ModeleAmi amis = new ModeleAmi();
       amis.initialize();
       amis.execute();
-      request.setAttribute("amis", amis.getListe());
-      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_AMIS);
-      rd.forward(request, response);
+      session.setAttribute("amis", amis.getListe());
+      response.sendRedirect(request.getContextPath() + VUE_AMIS);
 
       /*
        *Si l'utilisateur accede à sa page d'admin
        */
     } else if (redirection.equals("profil")) {
-      RequestDispatcher rd = this.getServletContext().getRequestDispatcher(VUE_PROFIL);
-      rd.forward(request, response);
+      response.sendRedirect(request.getContextPath() + VUE_PROFIL);
     }
   }
 }
