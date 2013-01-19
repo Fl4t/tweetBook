@@ -75,6 +75,12 @@ public class Controleur extends HttpServlet {
      */
     } else if (redirection.equals("nouveau")) {
       response.sendRedirect(request.getContextPath() + VUE_NOUVEAU);
+
+      /*
+       *Enregistrement du nouvel utilisateur
+       */
+    } else if (redirection.equals("enregistrer")) {
+      response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
     }
   }
 }
