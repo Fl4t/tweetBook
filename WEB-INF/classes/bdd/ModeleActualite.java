@@ -13,11 +13,10 @@ import modeles.Actualite;
 
 public class ModeleActualite {
 
-  protected ArrayList<Actualite> actualitees = new ArrayList<Actualite>();
   protected ResultSet rs;
   protected Connection con = null;
 
-  public void initialize() {
+  private void initialize() {
     try {
       Context initCtx = new InitialContext();
       Context envCtx = (Context) initCtx.lookup("java:comp/env");
@@ -30,7 +29,9 @@ public class ModeleActualite {
     }
   }
 
-  public void execute() {
+  public ArrayList<Actualite> fetchAll() {
+    this.initialize();
+    ArrayList<Actualite> actualitees = new ArrayList<Actualite>();
     try {
       PreparedStatement prep = this.con.prepareStatement("SELECT * FROM actualitees");
       this.rs = prep.executeQuery();
@@ -45,9 +46,6 @@ public class ModeleActualite {
     } catch(SQLException e) {
       System.out.println(e.getMessage());
     }
-  }
-
-  public ArrayList<Actualite> getListe() {
-    return this.actualitees;
+    return actualitees;
   }
 }

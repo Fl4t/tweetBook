@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bdd.*;
+import modeles.*;
 
 public class Controleur extends HttpServlet {
 
@@ -39,9 +40,8 @@ public class Controleur extends HttpServlet {
        */
     } else if (redirection.equals("actualitees")) {
       ModeleActualite actualitees = new ModeleActualite();
-      actualitees.initialize();
-      actualitees.execute();
-      session.setAttribute("actualitees", actualitees.getListe());
+      actualitees.fetchAll();
+      session.setAttribute("actualitees", actualitees);
       response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       /*
@@ -49,9 +49,8 @@ public class Controleur extends HttpServlet {
        */
     } else if (redirection.equals("mur")) {
       ModeleActualite actualitees = new ModeleActualite();
-      actualitees.initialize();
-      actualitees.execute();
-      session.setAttribute("actualitees", actualitees.getListe());
+      actualitees.fetchAll();
+      session.setAttribute("actualitees", actualitees);
       response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       /*
@@ -59,9 +58,8 @@ public class Controleur extends HttpServlet {
        */
     } else if (redirection.equals("amis")) {
       ModeleAmi amis = new ModeleAmi();
-      amis.initialize();
-      amis.execute();
-      session.setAttribute("amis", amis.getListe());
+      amis.fetchAll();
+      session.setAttribute("amis", amis);
       response.sendRedirect(request.getContextPath() + VUE_AMIS);
 
       /*
@@ -70,9 +68,9 @@ public class Controleur extends HttpServlet {
     } else if (redirection.equals("profil")) {
       response.sendRedirect(request.getContextPath() + VUE_PROFIL);
 
-    /*
-     * Nouvel utilisateur
-     */
+      /*
+       * Nouvel utilisateur
+       */
     } else if (redirection.equals("nouveau")) {
       response.sendRedirect(request.getContextPath() + VUE_NOUVEAU);
 

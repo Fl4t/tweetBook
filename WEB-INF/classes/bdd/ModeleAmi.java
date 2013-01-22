@@ -13,11 +13,10 @@ import modeles.Ami;
 
 public class ModeleAmi {
 
-  protected ArrayList<Ami> amis = new ArrayList<Ami>();
   protected ResultSet rs;
   protected Connection con = null;
 
-  public void initialize() {
+  private void initialize() {
     try {
       Context initCtx = new InitialContext();
       Context envCtx = (Context) initCtx.lookup("java:comp/env");
@@ -30,7 +29,9 @@ public class ModeleAmi {
     }
   }
 
-  public void execute() {
+  public ArrayList<Ami> fetchAll() {
+    this.initialize();
+    ArrayList<Ami> amis = new ArrayList<Ami>();
     try {
       PreparedStatement prep = this.con.prepareStatement("SELECT * FROM amis");
       this.rs = prep.executeQuery();
@@ -45,9 +46,6 @@ public class ModeleAmi {
     } catch(SQLException e) {
       System.out.println(e.getMessage());
     }
-  }
-
-  public ArrayList<Ami> getListe() {
-    return this.amis;
+    return amis;
   }
 }
