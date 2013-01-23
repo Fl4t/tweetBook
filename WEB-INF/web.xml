@@ -54,7 +54,7 @@
     <auth-method>FORM</auth-method>
     <form-login-config>
       <form-login-page>/vues/connexion.jsp</form-login-page>
-      <form-error-page>/vues/erreur.jsp</form-error-page>
+      <form-error-page>/vues/erreur.jsp?message=problème de connexion</form-error-page>
     </form-login-config>
   </login-config>
 
