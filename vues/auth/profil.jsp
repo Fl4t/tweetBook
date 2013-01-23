@@ -4,4 +4,11 @@
 
 <h1>Profil</h1>
 
+<ul>
+  <li>${personne.nom}</li>
+  <li>${personne.prenom}</li>
+  <li>${personne.email}</li>
+  <li>${personne.date_naissance}</li>
+</ul>
+
 <jsp:include page="../footer.jsp"/>

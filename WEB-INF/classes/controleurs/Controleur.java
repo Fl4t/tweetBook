@@ -61,6 +61,9 @@ public class Controleur extends HttpServlet {
        *Si l'utilisateur accede à sa page d'admin
        */
     } else if (redirection.equals("profil")) {
+      ModelePersonne modPers = new ModelePersonne();
+      Personne p = modPers.fetch(request.getUserPrincipal().getName());
+      session.setAttribute("personne", p);
       response.sendRedirect(request.getContextPath() + VUE_PROFIL);
 
       /*

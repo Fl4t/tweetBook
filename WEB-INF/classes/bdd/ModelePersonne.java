@@ -53,6 +53,33 @@ public class ModelePersonne {
     return personnes;
   }
 
+  public Personne fetch(String login) {
+    this.initialize();
+    Personne p = new Personne();
+    try {
+      PreparedStatement prep = this.con.prepareStatement(
+          "SELECT * FROM personnes " +
+          " where id_personne = (" +
+                                "SELECT id_authentification from authentification " +
+                                "where login = ?"+
+                                ")");
+      prep.setString(1, login);
+      this.rs = prep.executeQuery();
+      while (rs.next()) {
+        p.setId_personne(rs.getInt("id_personne"));
+        p.setNom(rs.getString("nom"));
+        p.setPrenom(rs.getString("prenom"));
+        p.setDate_naissance(rs.getString("date_naissance"));
+        p.setEmail(rs.getString("email"));
+        p.setVisibilite(rs.getString("visibilite"));
+      }
+      con.close();
+    } catch(SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return p;
+  }
+
   public void inscription(Personne p, Authentification a) {
     this.initialize();
     try {
