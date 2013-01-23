@@ -25,7 +25,6 @@
   <!-- Definition du Realm via le pool -->
   <Realm
     className="org.apache.catalina.realm.DataSourceRealm"
-    debug="99"
     dataSourceName="auth"
     localDataSource="true"
     userTable="authentification"
