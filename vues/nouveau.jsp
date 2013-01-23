@@ -11,22 +11,34 @@
     $('#datepicker').datepicker({language: 'fr'});
     $('#datepicker').datepicker('setStartDate', '01-01-1920');
     $('#datepicker').datepicker('setEndDate', '01-01-2000');
+    $('#datepicker').datepicker().on('changeDate', function() {
+      $('#datepicker').datepicker('hide');
+      $('#inputEmail').focus();
+    })
   });
 </script>
 
     <p>
 
-    <form class="form-horizontal" action="${pageContext.request.contextPath}/index.html?id=enregistrer">
+    <form class="form-horizontal" method="get"
+      action="${pageContext.request.contextPath}/index.html">
+      <input name="id" type="hidden" name="id" value="enregistrer" />
+      <div class="control-group">
+        <label class="control-label" for="inputLogin">Identifiant</label>
+        <div class="controls">
+          <input name="inputLogin" type="text" id="inputLogin" placeholder="Identifiant" required>
+        </div>
+      </div>
       <div class="control-group">
         <label class="control-label" for="inputNom">Nom</label>
         <div class="controls">
-          <input type="text" id="inputNom" placeholder="Nom" required>
+          <input name="inputNom" type="text" id="inputNom" placeholder="Nom" required>
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputPrenom">Prenom</label>
         <div class="controls">
-          <input type="text" id="inputPrenom" placeholder="Prenom" required>
+          <input name="inputPrenom" type="text" id="inputPrenom" placeholder="Prenom" required>
         </div>
       </div>
 
@@ -34,7 +46,7 @@
         <label class="control-label" for="datepicker">Date de naissance</label>
         <div class="controls">
           <div class="input-append date" id="datepicker">
-            <input class="span2" type="date" required>
+            <input name="inputDate_naissance" id="inputDate_naissance" class="span2" type="date" required>
             <span class="add-on"><i class="icon-calendar"></i></span>
           </div>
         </div>
@@ -43,19 +55,13 @@
       <div class="control-group">
         <label class="control-label" for="inputEmail">Email</label>
         <div class="controls">
-          <input type="email" id="inputEmail" placeholder="Email" required>
+          <input name="inputEmail" type="email" id="inputEmail" placeholder="Email" required>
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="inputPassword">Mot de passe</label>
         <div class="controls">
-          <input type="password" id="inputPassword" placeholder="Password" required>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label" for="inputPasswordConfirm">Confirmation</label>
-        <div class="controls">
-          <input type="password" id="inputPasswordConfirm" placeholder="Mot de passe" required>
+          <input name="inputPassword" type="password" id="inputPassword" placeholder="Password" required>
         </div>
       </div>
       <div class="control-group">
