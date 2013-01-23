@@ -38,7 +38,7 @@
   <Valve
     className="org.apache.catalina.valves.AccessLogValve"
     pattern="common"
-    prefix="tweetbook."
+    prefix="tweetbook_access."
     suffix=".txt"
     />
 
