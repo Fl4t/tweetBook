@@ -17,22 +17,22 @@
   </servlet-mapping>
 
   <!--       Recuperation des erreurs      -->
-  <!-- A commenter lors des mises au point -->
-  <error-page>
-    <error-code>403</error-code>
-    <location>/vues/erreur.jsp?message=Cette page ne vous est pas accessible</location>
-  </error-page>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/vues/erreur.jsp?message=Page inexistante</location>
-  </error-page>
-  <error-page>
-    <error-code>500</error-code>
-    <location>/vues/erreur.jsp?message=BDD ou Beans inaccessibles</location>
-  </error-page>
+  <!--A commenter lors des mises au point-->
+  <!--<error-page>-->
+    <!--<error-code>403</error-code>-->
+    <!--<location>/vues/erreur.jsp?message=Cette page ne vous est pas accessible</location>-->
+  <!--</error-page>-->
+  <!--<error-page>-->
+    <!--<error-code>404</error-code>-->
+    <!--<location>/vues/erreur.jsp?message=Page inexistante</location>-->
+  <!--</error-page>-->
+  <!--<error-page>-->
+    <!--<error-code>500</error-code>-->
+    <!--<location>/vues/erreur.jsp?message=BDD ou Beans inaccessibles</location>-->
+  <!--</error-page>-->
 
   <session-config>
-      <session-timeout>30</session-timeout>
+      <session-timeout>1</session-timeout>
   </session-config>
 
   <welcome-file-list>
