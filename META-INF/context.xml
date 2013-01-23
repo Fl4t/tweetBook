@@ -19,7 +19,7 @@
     maxWait="10000"
     name="auth"
     type="javax.sql.DataSource"
-    url="jdbc:sqlite:/Users/warez/tomcat/webapps/tweetbook/auth.db"
+    url="jdbc:sqlite:/Users/warez/Documents/workspace/java/tweetBook/auth.db"
     />
 
   <!-- Definition du Realm via le pool -->
