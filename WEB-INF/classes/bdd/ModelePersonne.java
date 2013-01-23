@@ -41,7 +41,7 @@ public class ModelePersonne {
         p.setId_personne(rs.getInt("id_personne"));
         p.setNom(rs.getString("nom"));
         p.setPrenom(rs.getString("prenom"));
-        p.setDate_naissance(rs.getDate("date_naissance"));
+        p.setDate_naissance(rs.getString("date_naissance"));
         p.setEmail(rs.getString("email"));
         p.setVisibilite(rs.getString("visibilite"));
         personnes.add(p);
@@ -53,7 +53,28 @@ public class ModelePersonne {
     return personnes;
   }
 
-  public ArrayList<Personne> getListe() {
-    return this.personnes;
+  public void inscription(Personne p, Authentification a) {
+    this.initialize();
+    try {
+      PreparedStatement prep1 = this.con.prepareStatement(
+          "insert into personnes values (null, ?, ?, ?, ?, ?)");
+      prep1.setString(1, p.getNom());
+      prep1.setString(2, p.getPrenom());
+      prep1.setString(3, p.getDate_naissance());
+      prep1.setString(4, p.getEmail());
+      prep1.setString(5, p.getVisibilite());
+      prep1.executeUpdate();
+      PreparedStatement prep2 = this.con.prepareStatement(
+          "insert into authentification values (null, ?, ?, ?)");
+      prep2.setString(1, a.getLogin());
+      prep2.setString(2, a.getPassword());
+      prep2.setString(3, a.getRole());
+      prep2.executeUpdate();
+      con.close();
+      System.out.println("inscription");
+    } catch(Exception e) {
+      System.out.println("inscriptionException");
+      System.out.println(e.getMessage());
+    }
   }
 }

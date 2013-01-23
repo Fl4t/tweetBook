@@ -1,13 +1,20 @@
 package modeles;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Ami {
 
-  int id_personne1;
-  int id_personne2;
-  Date date_ajout;
+  private int id_personne1;
+  private int id_personne2;
+  private Date date_ajout;
 
+  public Ami() {}
+
+  public Ami(int id_personne1, int id_personne2, Date date_ajout) {
+    this.id_personne1 = id_personne1;
+    this.id_personne2 = id_personne2;
+    this.date_ajout = date_ajout;
+  }
   /*
    * Setter
    */

@@ -1,15 +1,26 @@
 package modeles;
 
-import java.util.Date;
-
 public class Personne {
 
-  int id_personne;
-  String nom;
-  String prenom;
-  Date date_naissance;
-  String email;
-  String visibilite;
+  private int id_personne;
+  private String nom;
+  private String prenom;
+  private String date_naissance;
+  private String email;
+  private String visibilite;
+
+  public Personne() {}
+
+  public Personne(String nom,
+    String prenom, String date_naissance,
+    String email, String visibilite)
+  {
+    this.nom = nom;
+    this.prenom = prenom;
+    this.date_naissance = date_naissance;
+    this.email = email;
+    this.visibilite = visibilite;
+  }
 
   /*
    * Setter
@@ -26,7 +37,7 @@ public class Personne {
     this.prenom = prenom;
   }
 
-  public void setDate_naissance(Date date_naissance) {
+  public void setDate_naissance(String date_naissance) {
     this.date_naissance = date_naissance;
   }
 
@@ -53,7 +64,7 @@ public class Personne {
     return this.prenom;
   }
 
-  public Date getDate_naissance() {
+  public String getDate_naissance() {
     return this.date_naissance;
   }
 

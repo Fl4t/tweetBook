@@ -4,4 +4,5 @@
 ./WEB-INF/classes/controleurs/Controleur.java
 ./WEB-INF/classes/modeles/Actualite.java
 ./WEB-INF/classes/modeles/Ami.java
+./WEB-INF/classes/modeles/Authentification.java
 ./WEB-INF/classes/modeles/Personne.java

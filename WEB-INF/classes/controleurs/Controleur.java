@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
 import bdd.*;
 import modeles.*;
 
@@ -29,18 +30,12 @@ public class Controleur extends HttpServlet {
     HttpSession session = request.getSession(true);
     String redirection = request.getParameter("id");
 
-    /*
-     *Connexion
-     */
-    if (redirection == null)  {
-      response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
-
       /*
-       *Actualitées
+       * Connexion & Actualitées
        */
-    } else if (redirection.equals("actualitees")) {
-      ModeleActualite actualitees = new ModeleActualite();
-      actualitees.fetchAll();
+    if (redirection == null || redirection.equals("actualitees")) {
+      ModeleActualite modAct = new ModeleActualite();
+      ArrayList<Actualite> actualitees = modAct.fetchAll();
       session.setAttribute("actualitees", actualitees);
       response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
@@ -48,8 +43,8 @@ public class Controleur extends HttpServlet {
        *Mur
        */
     } else if (redirection.equals("mur")) {
-      ModeleActualite actualitees = new ModeleActualite();
-      actualitees.fetchAll();
+      ModeleActualite modAct = new ModeleActualite();
+      ArrayList<Actualite> actualitees = modAct.fetchAll();
       session.setAttribute("actualitees", actualitees);
       response.sendRedirect(request.getContextPath() + VUE_MUR);
 
@@ -78,6 +73,19 @@ public class Controleur extends HttpServlet {
        *Enregistrement du nouvel utilisateur
        */
     } else if (redirection.equals("enregistrer")) {
+      Personne p = new Personne(
+          request.getParameter("inputNom"),
+          request.getParameter("inputPrenom"),
+          request.getParameter("inputDate_naissance"),
+          request.getParameter("inputEmail"), "tous");
+      Authentification a = new Authentification(
+          request.getParameter("inputLogin"),
+          request.getParameter("inputPassword"), "role1");
+      ModelePersonne personne = new ModelePersonne();
+      personne.inscription(p, a);
+      ModeleActualite modAct = new ModeleActualite();
+      ArrayList<Actualite> actualitees = modAct.fetchAll();
+      session.setAttribute("actualitees", actualitees);
       response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
     }
   }

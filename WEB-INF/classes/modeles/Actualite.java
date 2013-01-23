@@ -1,12 +1,20 @@
 package modeles;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Actualite {
 
-  int id_actualite;
-  String contenu;
-  Date date_ajout;
+  private int id_actualite;
+  private String contenu;
+  private Date date_ajout;
+
+  public Actualite() {}
+
+  public Actualite(int id_actualite, String contenu, Date date_ajout) {
+    this.id_actualite = id_actualite;
+    this.contenu = contenu;
+    this.date_ajout = date_ajout;
+  }
 
   /*
    * Setter
