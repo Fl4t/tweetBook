@@ -1,6 +1,7 @@
 package controleurs;
 
 import java.io.IOException;
+import java.security.Principal;
 import javax.servlet.ServletException;
 
 import javax.servlet.RequestDispatcher;
@@ -30,30 +31,34 @@ public class Controleur extends HttpServlet {
     HttpSession session = request.getSession(true);
     String redirection = request.getParameter("id");
 
-      /*
-       * Connexion & Actualitées
-       */
+    Principal principal = request.getUserPrincipal();
+    //Enregistrement du visiteur dans la session si possible
+    if (principal != null){
+      String name = principal.getName();
+      ModelePersonne modPers = new ModelePersonne();
+      Personne p = modPers.fetch(name);
+      session.setAttribute("personne", p);
+    }
+
+    /*
+     * Connexion & Actualitées
+     */
     if (redirection == null || redirection.equals("actualitees")) {
-      ModeleActualite modAct = new ModeleActualite();
-      ArrayList<Actualite> actualitees = modAct.fetchAll();
-      session.setAttribute("actualitees", actualitees);
       response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       /*
        *Mur
        */
     } else if (redirection.equals("mur")) {
-      ModeleActualite modAct = new ModeleActualite();
-      ArrayList<Actualite> actualitees = modAct.fetchAll();
-      session.setAttribute("actualitees", actualitees);
       response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       /*
        *Si l'utilisateur accede à sa page d'amis
        */
     } else if (redirection.equals("amis")) {
-      ModeleAmi amis = new ModeleAmi();
-      amis.fetchAll();
+      Personne p = (Personne) session.getAttribute("personne");
+      ModelePersonne modPers = new ModelePersonne();
+      ArrayList<Personne> amis = modPers.fetchAmis(p);
       session.setAttribute("amis", amis);
       response.sendRedirect(request.getContextPath() + VUE_AMIS);
 
@@ -61,9 +66,6 @@ public class Controleur extends HttpServlet {
        *Si l'utilisateur accede à sa page d'admin
        */
     } else if (redirection.equals("profil")) {
-      ModelePersonne modPers = new ModelePersonne();
-      Personne p = modPers.fetch(request.getUserPrincipal().getName());
-      session.setAttribute("personne", p);
       response.sendRedirect(request.getContextPath() + VUE_PROFIL);
 
       /*

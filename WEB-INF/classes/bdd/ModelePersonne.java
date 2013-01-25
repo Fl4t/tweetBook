@@ -30,6 +30,35 @@ public class ModelePersonne {
     }
   }
 
+  public ArrayList<Personne> fetchAmis(Personne p) {
+    this.initialize();
+    ArrayList<Personne> amis = new ArrayList<Personne>();
+    try {
+      PreparedStatement prep = this.con.prepareStatement("SELECT * FROM personnes " +
+          "where id_personne IN (" +
+          "select id_personne2 from amis where id_personne1 = ? or id_personne2 = ?" +
+          ") and id_personne != ?");
+      prep.setInt(1, p.getId_personne());
+      prep.setInt(2, p.getId_personne());
+      prep.setInt(3, p.getId_personne());
+      this.rs = prep.executeQuery();
+      while (rs.next()) {
+        Personne copain = new Personne();
+        copain.setId_personne(rs.getInt("id_personne"));
+        copain.setNom(rs.getString("nom"));
+        copain.setPrenom(rs.getString("prenom"));
+        copain.setDate_naissance(rs.getString("date_naissance"));
+        copain.setEmail(rs.getString("email"));
+        copain.setVisibilite(rs.getString("visibilite"));
+        amis.add(copain);
+      }
+      con.close();
+    } catch(SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return amis;
+  }
+
   public ArrayList<Personne> fetchAll() {
     this.initialize();
     ArrayList<Personne> personnes = new ArrayList<Personne>();
@@ -98,9 +127,7 @@ public class ModelePersonne {
       prep2.setString(3, a.getRole());
       prep2.executeUpdate();
       con.close();
-      System.out.println("inscription");
     } catch(Exception e) {
-      System.out.println("inscriptionException");
       System.out.println(e.getMessage());
     }
   }

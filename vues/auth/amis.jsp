@@ -3,12 +3,12 @@
 <jsp:include page="../header.jsp"/>
 
 <h1>Liste des amis</h1>
-<p>
-  <c:forEach items="${amis}" var="ami">
-    <c:out value="${ami.id_personne1}"/>
-    <c:out value="${ami.id_personne2}"/>
-    <c:out value="${ami.date_ajout}"/>
-  </c:forEach>
-</p>
+
+<c:forEach items="${amis}" var="ami">
+<ul>
+  <li><c:out value="${ami.nom}"/></li>
+  <li><c:out value="${ami.prenom}"/></li>
+</ul>
+</c:forEach>
 
 <jsp:include page="../footer.jsp"/>
