@@ -29,80 +29,76 @@ public class Controleur extends HttpServlet {
 
     HttpSession session = request.getSession(true);
     String redirection = request.getParameter("id");
+    ModelePersonne modPers = new ModelePersonne();
 
-    Principal principal = request.getUserPrincipal();
-    //Enregistrement du visiteur dans la session si possible
-    if (principal != null){
+    if (request.getUserPrincipal() != null) {
+      Principal principal = request.getUserPrincipal();
       String name = principal.getName();
-      ModelePersonne modPers = new ModelePersonne();
       Personne p = modPers.fetch(name);
       session.setAttribute("personne", p);
     }
 
-    if (session.getAttribute("personne") != null) {
+    //////////////////////////////////
+    //// Personne non-authentifié ////
+    //////////////////////////////////
 
-      /*
-       * Connexion & Actualitées
-       */
-      if (redirection == null || redirection.equals("actualitees")) {
+    if (session.getAttribute("personne") == null) {
+
+      if (redirection == null) {
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
-        /*
-         *Mur
-         */
+      } else if (redirection.equals("nouveau")) {
+        response.sendRedirect(request.getContextPath() + VUE_NOUVEAU);
+
+      } else if (redirection.equals("enregistrer")) {
+        Personne p = new Personne
+          (
+            request.getParameter("inputNom"),
+            request.getParameter("inputPrenom"),
+            request.getParameter("inputDate_naissance"),
+            request.getParameter("inputEmail"), "tous"
+          );
+        Authentification a = new Authentification
+          (
+            request.getParameter("inputLogin"),
+            request.getParameter("inputPassword"),
+            "role1"
+          );
+        modPers.inscription(p, a);
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+
+      } else {
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+      }
+
+    //////////////////////////////
+    //// Personne authentifié ////
+    //////////////////////////////
+
+    } else {
+
+      if (redirection == null) {
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+
       } else if (redirection.equals("mur")) {
         response.sendRedirect(request.getContextPath() + VUE_MUR);
 
-        /*
-         *Si l'utilisateur accede à sa page d'amis
-         */
       } else if (redirection.equals("amis")) {
         Personne p = (Personne) session.getAttribute("personne");
-        ModelePersonne modPers = new ModelePersonne();
         ArrayList<Personne> amis = modPers.fetchAmis(p);
         session.setAttribute("amis", amis);
         response.sendRedirect(request.getContextPath() + VUE_AMIS);
 
-        /*
-         *Si l'utilisateur accede à sa page d'admin
-         */
       } else if (redirection.equals("admin")) {
         response.sendRedirect(request.getContextPath() + VUE_ADMIN);
 
-        /*
-         * Nouvel utilisateur
-         */
-      } else if (redirection.equals("nouveau")) {
-        response.sendRedirect(request.getContextPath() + VUE_NOUVEAU);
-
-        /*
-         *Enregistrement du nouvel utilisateur
-         */
-      } else if (redirection.equals("enregistrer")) {
-        Personne p = new Personne(
-            request.getParameter("inputNom"),
-            request.getParameter("inputPrenom"),
-            request.getParameter("inputDate_naissance"),
-            request.getParameter("inputEmail"), "tous");
-        Authentification a = new Authentification(
-            request.getParameter("inputLogin"),
-            request.getParameter("inputPassword"), "role1");
-        ModelePersonne personne = new ModelePersonne();
-        personne.inscription(p, a);
-        ModeleActualite modAct = new ModeleActualite();
-        ArrayList<Actualite> actualitees = modAct.fetchAll();
-        session.setAttribute("actualitees", actualitees);
-        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
-
-        /*
-         *Déconnexion de l'utilisateur
-         */
       } else if (redirection.equals("deconnexion")) {
         session.invalidate();
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+
+      } else {
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
       }
-    } else {
-      response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
     }
   }
 }
