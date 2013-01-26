@@ -1,5 +1,3 @@
-./WEB-INF/classes/bdd/ModeleActualite.java
-./WEB-INF/classes/bdd/ModeleAmi.java
 ./WEB-INF/classes/bdd/ModelePersonne.java
 ./WEB-INF/classes/bdd/Recherche.java
 ./WEB-INF/classes/controleurs/Controleur.java
