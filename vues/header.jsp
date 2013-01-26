@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML>
 <html lang="fr">
   <head>
@@ -21,11 +22,18 @@
           <li><a href="${pageContext.request.contextPath}/index.html?id=mur">Mur</a></li>
           <li><a href="${pageContext.request.contextPath}/index.html?id=amis">Amis</a></li>
         </ul>
+        <c:if test="${!empty sessionScope.personne}">
+        <ul class="nav pull-right">
+          <li class="divider-vertical"></li>
+          <li><a href="${pageContext.request.contextPath}/index.html?id=admin">Administration</a></li>
+          <li><a href="${pageContext.request.contextPath}/index.html?id=deconnexion">Deconnexion</a></li>
+        </ul>
+        </c:if>
       </div>
     </div>
     <div class="container">
-        <script src="${pageContext.request.contextPath}/ressources/js/bootstrap.js"></script>
-        <script src="${pageContext.request.contextPath}/ressources/js/jquery.js"></script>
-        <script src="${pageContext.request.contextPath}/ressources/js/bootstrap-datepicker.js"></script>
-        <script src="${pageContext.request.contextPath}/ressources/js/locales/bootstrap-datepicker.fr.js"></script>
-        <div>
+      <script src="${pageContext.request.contextPath}/ressources/js/bootstrap.js"></script>
+      <script src="${pageContext.request.contextPath}/ressources/js/jquery.js"></script>
+      <script src="${pageContext.request.contextPath}/ressources/js/bootstrap-datepicker.js"></script>
+      <script src="${pageContext.request.contextPath}/ressources/js/locales/bootstrap-datepicker.fr.js"></script>
+      <div>

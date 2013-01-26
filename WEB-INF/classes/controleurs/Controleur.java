@@ -66,6 +66,8 @@ public class Controleur extends HttpServlet {
         /*
          *Si l'utilisateur accede à sa page d'admin
          */
+      } else if (redirection.equals("admin")) {
+        response.sendRedirect(request.getContextPath() + VUE_ADMIN);
 
         /*
          * Nouvel utilisateur
@@ -90,6 +92,13 @@ public class Controleur extends HttpServlet {
         ModeleActualite modAct = new ModeleActualite();
         ArrayList<Actualite> actualitees = modAct.fetchAll();
         session.setAttribute("actualitees", actualitees);
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+
+        /*
+         *Déconnexion de l'utilisateur
+         */
+      } else if (redirection.equals("deconnexion")) {
+        session.invalidate();
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
       }
     } else {
