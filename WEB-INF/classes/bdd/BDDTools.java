@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import modeles.Personne;
 import modeles.Authentification;
 
-public class ModelePersonne {
+public class BDDTools {
 
   protected ResultSet rs;
   protected Connection con = null;

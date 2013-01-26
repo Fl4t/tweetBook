@@ -29,7 +29,7 @@ public class Controleur extends HttpServlet {
 
     HttpSession session = request.getSession(true);
     String redirection = request.getParameter("id");
-    ModelePersonne modPers = new ModelePersonne();
+    BDDTools modPers = new BDDTools();
 
     if (request.getUserPrincipal() != null) {
       Principal principal = request.getUserPrincipal();

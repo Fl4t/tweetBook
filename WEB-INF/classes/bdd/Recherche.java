@@ -23,7 +23,7 @@ public class Recherche extends HttpServlet {
     HttpSession session = request.getSession();
     Personne p = (Personne) session.getAttribute("personne");
     PrintWriter out = response.getWriter();
-    ModelePersonne modPers = new ModelePersonne();
+    BDDTools modPers = new BDDTools();
     ArrayList<Personne> amisPossibles = modPers.rechercheAmis(p, request.getParameter("la_recherche"));
     out.println(this.HTMLiser(amisPossibles));
   }
