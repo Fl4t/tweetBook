@@ -40,57 +40,62 @@ public class Controleur extends HttpServlet {
       session.setAttribute("personne", p);
     }
 
-    /*
-     * Connexion & Actualitées
-     */
-    if (redirection == null || redirection.equals("actualitees")) {
-      response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+    if (session.getAttribute("personne") != null) {
 
       /*
-       *Mur
+       * Connexion & Actualitées
        */
-    } else if (redirection.equals("mur")) {
-      response.sendRedirect(request.getContextPath() + VUE_MUR);
+      if (redirection == null || redirection.equals("actualitees")) {
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
-      /*
-       *Si l'utilisateur accede à sa page d'amis
-       */
-    } else if (redirection.equals("amis")) {
-      Personne p = (Personne) session.getAttribute("personne");
-      ModelePersonne modPers = new ModelePersonne();
-      ArrayList<Personne> amis = modPers.fetchAmis(p);
-      session.setAttribute("amis", amis);
-      response.sendRedirect(request.getContextPath() + VUE_AMIS);
+        /*
+         *Mur
+         */
+      } else if (redirection.equals("mur")) {
+        response.sendRedirect(request.getContextPath() + VUE_MUR);
 
-      /*
-       *Si l'utilisateur accede à sa page d'admin
-       */
-    } else if (redirection.equals("profil")) {
-      response.sendRedirect(request.getContextPath() + VUE_PROFIL);
+        /*
+         *Si l'utilisateur accede à sa page d'amis
+         */
+      } else if (redirection.equals("amis")) {
+        Personne p = (Personne) session.getAttribute("personne");
+        ModelePersonne modPers = new ModelePersonne();
+        ArrayList<Personne> amis = modPers.fetchAmis(p);
+        session.setAttribute("amis", amis);
+        response.sendRedirect(request.getContextPath() + VUE_AMIS);
 
-      /*
-       * Nouvel utilisateur
-       */
-    } else if (redirection.equals("nouveau")) {
-      response.sendRedirect(request.getContextPath() + VUE_NOUVEAU);
+        /*
+         *Si l'utilisateur accede à sa page d'admin
+         */
+      } else if (redirection.equals("profil")) {
+        response.sendRedirect(request.getContextPath() + VUE_PROFIL);
 
-      /*
-       *Enregistrement du nouvel utilisateur
-       */
-    } else if (redirection.equals("enregistrer")) {
-      Personne p = new Personne(
-          request.getParameter("inputNom"),
-          request.getParameter("inputPrenom"),
-          request.getParameter("inputDate_naissance"),
-          request.getParameter("inputEmail"), "tous");
-      Authentification a = new Authentification(
-          request.getParameter("inputLogin"),
-          request.getParameter("inputPassword"), "role1");
-      ModelePersonne personne = new ModelePersonne();
-      personne.inscription(p, a);
-      ModeleActualite modAct = new ModeleActualite();
-      ArrayList<Actualite> actualitees = modAct.fetchAll();
-      session.setAttribute("actualitees", actualitees);
+        /*
+         * Nouvel utilisateur
+         */
+      } else if (redirection.equals("nouveau")) {
+        response.sendRedirect(request.getContextPath() + VUE_NOUVEAU);
+
+        /*
+         *Enregistrement du nouvel utilisateur
+         */
+      } else if (redirection.equals("enregistrer")) {
+        Personne p = new Personne(
+            request.getParameter("inputNom"),
+            request.getParameter("inputPrenom"),
+            request.getParameter("inputDate_naissance"),
+            request.getParameter("inputEmail"), "tous");
+        Authentification a = new Authentification(
+            request.getParameter("inputLogin"),
+            request.getParameter("inputPassword"), "role1");
+        ModelePersonne personne = new ModelePersonne();
+        personne.inscription(p, a);
+        ModeleActualite modAct = new ModeleActualite();
+        ArrayList<Actualite> actualitees = modAct.fetchAll();
+        session.setAttribute("actualitees", actualitees);
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+      }
+    } else {
       response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
     }
   }
