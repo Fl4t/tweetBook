@@ -20,9 +20,11 @@ public class Recherche extends HttpServlet {
   public void service(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
   {
+    HttpSession session = request.getSession();
+    Personne p = (Personne) session.getAttribute("personne");
     PrintWriter out = response.getWriter();
     ModelePersonne modPers = new ModelePersonne();
-    ArrayList<Personne> amisPossibles = modPers.rechercheAmis(request.getParameter("la_recherche"));
+    ArrayList<Personne> amisPossibles = modPers.rechercheAmis(p, request.getParameter("la_recherche"));
     out.println(this.HTMLiser(amisPossibles));
   }
 

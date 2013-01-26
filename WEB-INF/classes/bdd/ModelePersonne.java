@@ -109,16 +109,30 @@ public class ModelePersonne {
     return p;
   }
 
-  public ArrayList<Personne> rechercheAmis(String login) {
+  public ArrayList<Personne> rechercheAmis(Personne client, String login) {
     this.initialize();
     ArrayList<Personne> personnes = new ArrayList<Personne>();
     try {
       PreparedStatement prep = this.con.prepareStatement(
-          "SELECT * " +
-          "FROM personnes " +
-          "where nom like ? or prenom like ?");
-      prep.setString(1, "%" + login + "%");
-      prep.setString(2, "%" + login + "%");
+
+          "SELECT id_personne, nom, prenom, date_naissance, email, visibilite " +
+          "from personnes " +
+          "where id_personne NOT IN (" +
+          "                  select id_personne2 " +
+          "                  from amis " +
+          "                  where id_personne1 = ? or id_personne2 = ?) " +
+          "and id_personne != ? " +
+          "and nom != ? " +
+          "and prenom != ? " +
+          "and (nom like ? or prenom like ?)");
+
+      prep.setInt(1, client.getId_personne());
+      prep.setInt(2, client.getId_personne());
+      prep.setInt(3, client.getId_personne());
+      prep.setString(4, client.getNom());
+      prep.setString(5, client.getPrenom());
+      prep.setString(6, "%" + login + "%");
+      prep.setString(7, "%" + login + "%");
       this.rs = prep.executeQuery();
       while (rs.next()) {
         Personne p = new Personne();
