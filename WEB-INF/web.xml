@@ -16,6 +16,17 @@
       <url-pattern>/index.html</url-pattern>
   </servlet-mapping>
 
+  <!--Recherche-->
+  <servlet>
+      <servlet-name>Recherche</servlet-name>
+      <servlet-class>bdd.Recherche</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+      <servlet-name>Recherche</servlet-name>
+      <url-pattern>/recherche.html</url-pattern>
+  </servlet-mapping>
+
   <!--       Recuperation des erreurs      -->
   <!--A commenter lors des mises au point-->
   <!--<error-page>-->

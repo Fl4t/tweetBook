@@ -109,6 +109,34 @@ public class ModelePersonne {
     return p;
   }
 
+  public ArrayList<Personne> rechercheAmis(String login) {
+    this.initialize();
+    ArrayList<Personne> personnes = new ArrayList<Personne>();
+    try {
+      PreparedStatement prep = this.con.prepareStatement(
+          "SELECT * " +
+          "FROM personnes " +
+          "where nom like ? or prenom like ?");
+      prep.setString(1, "%" + login + "%");
+      prep.setString(2, "%" + login + "%");
+      this.rs = prep.executeQuery();
+      while (rs.next()) {
+        Personne p = new Personne();
+        p.setId_personne(rs.getInt("id_personne"));
+        p.setNom(rs.getString("nom"));
+        p.setPrenom(rs.getString("prenom"));
+        p.setDate_naissance(rs.getString("date_naissance"));
+        p.setEmail(rs.getString("email"));
+        p.setVisibilite(rs.getString("visibilite"));
+        personnes.add(p);
+      }
+      con.close();
+    } catch(SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return personnes;
+  }
+
   public void inscription(Personne p, Authentification a) {
     this.initialize();
     try {
