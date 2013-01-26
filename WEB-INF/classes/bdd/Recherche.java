@@ -30,11 +30,11 @@ public class Recherche extends HttpServlet {
 
   public String HTMLiser(ArrayList<Personne> amisPossibles) {
     String ret = "";
+    ret += "<ul>";
     for (Personne p : amisPossibles) {
-      ret += "<ul>";
       ret += "<li>" + p.getNom() + " " + p.getPrenom() + "</li>";
-      ret += "</ul>";
     }
+    ret += "</ul>";
     return ret;
   }
 }

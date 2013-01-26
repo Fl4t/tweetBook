@@ -33,12 +33,11 @@ $(document).ready(function() {
 
         <h1>Liste des amis</h1>
 
-        <c:forEach items="${amis}" var="ami">
         <ul>
-          <li><c:out value="${ami.nom}"/></li>
-          <li><c:out value="${ami.prenom}"/></li>
-        </ul>
+        <c:forEach items="${amis}" var="ami">
+          <li><c:out value="${ami.nom}"/> <c:out value="${ami.prenom}"/></li>
         </c:forEach>
+        </ul>
 
       </div>
       <div class="span6">
