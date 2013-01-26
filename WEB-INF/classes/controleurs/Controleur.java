@@ -22,7 +22,6 @@ public class Controleur extends HttpServlet {
   private static final String VUE_ADMIN = "/vues/auth/admin.jsp";
   private static final String VUE_MUR = "/vues/auth/mur.jsp";
   private static final String VUE_AMIS = "/vues/auth/amis.jsp";
-  private static final String VUE_PROFIL = "/vues/auth/profil.jsp";
 
   public void service(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
@@ -67,8 +66,6 @@ public class Controleur extends HttpServlet {
         /*
          *Si l'utilisateur accede à sa page d'admin
          */
-      } else if (redirection.equals("profil")) {
-        response.sendRedirect(request.getContextPath() + VUE_PROFIL);
 
         /*
          * Nouvel utilisateur

@@ -20,7 +20,6 @@
           <li><a href="${pageContext.request.contextPath}/index.html?id=actualitees">Fil d'actualitées</a></li>
           <li><a href="${pageContext.request.contextPath}/index.html?id=mur">Mur</a></li>
           <li><a href="${pageContext.request.contextPath}/index.html?id=amis">Amis</a></li>
-          <li><a href="${pageContext.request.contextPath}/index.html?id=profil">Profil</a></li>
         </ul>
       </div>
     </div>
