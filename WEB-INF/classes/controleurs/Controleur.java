@@ -75,6 +75,8 @@ public class Controleur extends HttpServlet {
 
     } else {
 
+      Personne p = (Personne) session.getAttribute("personne");
+
       if (redirection == null) {
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
@@ -82,7 +84,6 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       } else if (redirection.equals("amis")) {
-        Personne p = (Personne) session.getAttribute("personne");
         ArrayList<Personne> amis = this.tools.fetchAmis(p);
         session.setAttribute("amis", amis);
         response.sendRedirect(request.getContextPath() + VUE_AMIS);
