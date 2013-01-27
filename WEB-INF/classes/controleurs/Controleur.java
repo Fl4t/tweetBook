@@ -32,10 +32,7 @@ public class Controleur extends HttpServlet {
     BDDTools modPers = new BDDTools();
 
     if (request.getUserPrincipal() != null) {
-      Principal principal = request.getUserPrincipal();
-      String name = principal.getName();
-      Personne p = modPers.fetch(name);
-      session.setAttribute("personne", p);
+      this.enregistrerUserDansSession(request, session);
     }
 
     //////////////////////////////////
@@ -100,5 +97,12 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
       }
     }
+  }
+
+  private void enregistrerUserDansSession(HttpServletRequest request, HttpSession session) {
+    Principal principal = request.getUserPrincipal();
+    String name = principal.getName();
+    Personne p = this.tools.fetch(name);
+    session.setAttribute("personne", p);
   }
 }
