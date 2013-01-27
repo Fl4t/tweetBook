@@ -23,13 +23,14 @@ public class Controleur extends HttpServlet {
   private static final String VUE_MUR = "/vues/auth/mur.jsp";
   private static final String VUE_AMIS = "/vues/auth/amis.jsp";
 
+  private BDDTools tools = new BDDTools();
+
   public void service(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
   {
 
     HttpSession session = request.getSession(true);
     String redirection = request.getParameter("id");
-    BDDTools modPers = new BDDTools();
 
     if (request.getUserPrincipal() != null) {
       this.enregistrerUserDansSession(request, session);
@@ -61,7 +62,7 @@ public class Controleur extends HttpServlet {
             request.getParameter("inputPassword"),
             "role1"
           );
-        modPers.inscription(p, a);
+        this.tools.inscription(p, a);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else {
@@ -82,7 +83,7 @@ public class Controleur extends HttpServlet {
 
       } else if (redirection.equals("amis")) {
         Personne p = (Personne) session.getAttribute("personne");
-        ArrayList<Personne> amis = modPers.fetchAmis(p);
+        ArrayList<Personne> amis = this.tools.fetchAmis(p);
         session.setAttribute("amis", amis);
         response.sendRedirect(request.getContextPath() + VUE_AMIS);
 
