@@ -30,6 +30,40 @@ public class BDDTools {
     }
   }
 
+  public void changerVisibilite(Personne p, String visibilite) {
+    this.initialize();
+    try {
+      PreparedStatement prep = this.con.prepareStatement(
+          "update personnes " +
+          "set visibilite = ? " +
+          "where id_personne = ?"
+          );
+      prep.setString(1, visibilite);
+      prep.setInt(2, p.getId_personne());
+      prep.executeUpdate();
+      con.close();
+    } catch(Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  public void changerMotDePasse(Personne p, String motDePasse) {
+    this.initialize();
+    try {
+      PreparedStatement prep = this.con.prepareStatement(
+          "update authentification " +
+          "set password = ? " +
+          "where id_authentification = ?"
+          );
+      prep.setString(1, motDePasse);
+      prep.setInt(2, p.getId_personne());
+      prep.executeUpdate();
+      con.close();
+    } catch(Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
   public ArrayList<Personne> fetchAmis(Personne p) {
     this.initialize();
     ArrayList<Personne> amis = new ArrayList<Personne>();

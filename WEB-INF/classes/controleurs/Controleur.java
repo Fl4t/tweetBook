@@ -91,6 +91,16 @@ public class Controleur extends HttpServlet {
       } else if (redirection.equals("admin")) {
         response.sendRedirect(request.getContextPath() + VUE_ADMIN);
 
+      } else if (redirection.equals("visibilite")) {
+        this.tools.changerVisibilite(p, request.getParameter("visibilite"));
+        this.enregistrerUserDansSession(request, session);
+        response.sendRedirect(request.getContextPath() + VUE_ADMIN);
+
+      } else if (redirection.equals("password")) {
+        this.tools.changerMotDePasse(p, request.getParameter("motDePasse2"));
+        this.enregistrerUserDansSession(request, session);
+        response.sendRedirect(request.getContextPath() + VUE_ADMIN);
+
       } else if (redirection.equals("deconnexion")) {
         session.invalidate();
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
