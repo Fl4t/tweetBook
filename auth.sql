@@ -37,17 +37,6 @@ create table if not exists Authentification (
   primary key(id_authentification)
 );
 
---ICI LA REQUETE PROBLEMATIQUE
-
-select ac.id_actualite, ac.contenu, ac.date_ajout, ac.id_personne
-from actualitees ac
-join personnes p on ac.id_personne = p.id_personne
-join amis am on am.id_personne1 = p.id_personne or am.id_personne2 = p.id_personne
-where ac.id_personne in (select id_personne2
-                        from amis
-                        where id_personne1 = 1 or id_personne2 = 1)
-order by am.date_ajout and ac.date_ajout desc;
-
 insert into Personnes values(null, 'stechele', 'julien', '29/01/1989', 'mail_bidon@gmail.com', 'tous');
 insert into Personnes values(null, 'ruchon', 'thomas', '29/05/1989', 'mail_bidon@gmail.com', 'tous');
 insert into Personnes values(null, 'serir', 'jean-françois', '29/01/1990', 'mail_bidon@gmail.com', 'aucune');
@@ -75,38 +64,35 @@ insert into Amis values('4', '3', date('now', '+2 day'));
 insert into Amis values('3', '5', date('now', '+3 day'));
 insert into Amis values('5', '3', date('now', '+3 day'));
 
-insert into Amis values('4', '5', date('now', '+2 day'));
-insert into Amis values('5', '4', date('now', '+2 day'));
+insert into Actualitees values(null, 'stechelj1', datetime('now', '+1 hour', '+1 day'), '1');
+insert into Actualitees values(null, 'stechelj2', datetime('now', '+2 hour', '+2 day'), '1');
+insert into Actualitees values(null, 'stechelj3', datetime('now', '+3 hour', '+3 day'), '1');
+insert into Actualitees values(null, 'stechelj4', datetime('now', '+4 hour', '+4 day'), '1');
+insert into Actualitees values(null, 'stechelj5', datetime('now', '+5 hour', '+5 day'), '1');
 
-insert into Actualitees values(null, 'stechelj1', datetime(), '1');
---insert into Actualitees values(null, 'stechelj2', datetime(), '1');
---insert into Actualitees values(null, 'stechelj3', datetime(), '1');
---insert into Actualitees values(null, 'stechelj4', datetime(), '1');
---insert into Actualitees values(null, 'stechelj5', datetime(), '1');
+insert into Actualitees values(null, 'ruchont1', datetime('now', '+1 hour', '+1 day'), '2');
+insert into Actualitees values(null, 'ruchont2', datetime('now', '+2 hour', '+2 day'), '2');
+insert into Actualitees values(null, 'ruchont3', datetime('now', '+3 hour', '+3 day'), '2');
+insert into Actualitees values(null, 'ruchont4', datetime('now', '+4 hour', '+4 day'), '2');
+insert into Actualitees values(null, 'ruchont5', datetime('now', '+5 hour', '+5 day'), '2');
 
-insert into Actualitees values(null, 'ruchont1', datetime(), '2');
---insert into Actualitees values(null, 'ruchont2', datetime(), '2');
---insert into Actualitees values(null, 'ruchont3', datetime(), '2');
---insert into Actualitees values(null, 'ruchont4', datetime(), '2');
---insert into Actualitees values(null, 'ruchont5', datetime(), '2');
+insert into Actualitees values(null, 'serirj1', datetime('now', '+1 hour', '+1 day'), '3');
+insert into Actualitees values(null, 'serirj2', datetime('now', '+2 hour', '+2 day'), '3');
+insert into Actualitees values(null, 'serirj3', datetime('now', '+3 hour', '+3 day'), '3');
+insert into Actualitees values(null, 'serirj4', datetime('now', '+4 hour', '+4 day'), '3');
+insert into Actualitees values(null, 'serirj5', datetime('now', '+5 hour', '+5 day'), '3');
 
-insert into Actualitees values(null, 'serir1', datetime(), '3');
---insert into Actualitees values(null, 'serir2', datetime(), '3');
---insert into Actualitees values(null, 'serir3', datetime(), '3');
---insert into Actualitees values(null, 'serir4', datetime(), '3');
---insert into Actualitees values(null, 'serir5', datetime(), '3');
+insert into Actualitees values(null, 'cartona1', datetime('now', '+1 hour', '+1 day'), '4');
+insert into Actualitees values(null, 'cartona2', datetime('now', '+2 hour', '+2 day'), '4');
+insert into Actualitees values(null, 'cartona3', datetime('now', '+3 hour', '+3 day'), '4');
+insert into Actualitees values(null, 'cartona4', datetime('now', '+4 hour', '+4 day'), '4');
+insert into Actualitees values(null, 'cartona5', datetime('now', '+5 hour', '+5 day'), '4');
 
-insert into Actualitees values(null, 'carton1', datetime(), '4');
---insert into Actualitees values(null, 'carton2', datetime(), '4');
---insert into Actualitees values(null, 'carton3', datetime(), '4');
---insert into Actualitees values(null, 'carton4', datetime(), '4');
---insert into Actualitees values(null, 'carton5', datetime(), '4');
-
-insert into Actualitees values(null, 'vanthom1', datetime(), '5');
---insert into Actualitees values(null, 'vanthom2', datetime(), '5');
---insert into Actualitees values(null, 'vanthom3', datetime(), '5');
---insert into Actualitees values(null, 'vanthom4', datetime(), '5');
---insert into Actualitees values(null, 'vanthom5', datetime(), '5');
+insert into Actualitees values(null, 'vanthoma1', datetime('now', '+1 hour', '+1 day'), '5');
+insert into Actualitees values(null, 'vanthoma2', datetime('now', '+2 hour', '+2 day'), '5');
+insert into Actualitees values(null, 'vanthoma3', datetime('now', '+3 hour', '+3 day'), '5');
+insert into Actualitees values(null, 'vanthoma4', datetime('now', '+4 hour', '+4 day'), '5');
+insert into Actualitees values(null, 'vanthoma5', datetime('now', '+5 hour', '+5 day'), '5');
 
 insert into Authentification values(null, 'stechelj', 'stechelj', 'role1');
 insert into Authentification values(null, 'ruchont', 'ruchont', 'role1');
