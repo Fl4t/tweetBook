@@ -78,6 +78,8 @@ public class Controleur extends HttpServlet {
       Personne p = (Personne) session.getAttribute("personne");
 
       if (redirection == null) {
+        ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
+        session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else if (redirection.equals("mur")) {

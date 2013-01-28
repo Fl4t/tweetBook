@@ -9,8 +9,11 @@ import javax.naming.InitialContext;
 import javax.naming.Context;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import modeles.Personne;
-import modeles.Authentification;
+import java.text.DateFormat;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import modeles.*;
 
 public class BDDTools {
 
@@ -28,6 +31,47 @@ public class BDDTools {
     } catch(SQLException e2) {
       e2.getStackTrace();
     }
+  }
+
+  public ArrayList<Actualite> fetchActualitees(Personne p) {
+    this.initialize();
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Date dateMod = null;
+    ArrayList<Actualite> actus = new ArrayList<Actualite>();
+    try {
+      PreparedStatement prep = this.con.prepareStatement(
+      "select distinct p.nom, p.prenom, ac.date_ajout, ac.contenu " +
+      "from actualitees ac " +
+      "join personnes p on ac.id_personne = p.id_personne " +
+      "join amis am on am.id_personne1 = ? or am.id_personne2 = ? " +
+      "where ac.id_personne in (select id_personne2 " +
+      "                        from amis " +
+      "                        where id_personne1 = ? or id_personne2 = ?) " +
+      "and ac.date_ajout >= am.date_ajout " +
+      "order by ac.date_ajout desc");
+      prep.setInt(1, p.getId_personne());
+      prep.setInt(2, p.getId_personne());
+      prep.setInt(3, p.getId_personne());
+      prep.setInt(4, p.getId_personne());
+      this.rs = prep.executeQuery();
+      while (rs.next()) {
+        Actualite actu = new Actualite();
+        actu.setNom(rs.getString("nom"));
+        actu.setPrenom(rs.getString("prenom"));
+        try {
+            dateMod = df.parse(rs.getString("date_ajout"));
+        } catch (ParseException e) {
+          e.printStackTrace();
+        }
+        actu.setDate_ajout(dateMod);
+        actu.setContenu(rs.getString("contenu"));
+        actus.add(actu);
+      }
+      con.close();
+    } catch(SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return actus;
   }
 
   public void changerVisibilite(Personne p, String visibilite) {

@@ -1,48 +1,58 @@
 package modeles;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Actualite {
 
-  private int id_actualite;
-  private String contenu;
+  private String nom;
+  private String prenom;
   private Date date_ajout;
+  private String contenu;
 
   public Actualite() {}
 
-  public Actualite(int id_actualite, String contenu, Date date_ajout) {
-    this.id_actualite = id_actualite;
-    this.contenu = contenu;
+  public Actualite(String nom, String prenom, Date date_ajout, String contenu) {
+    this.nom = nom;
+    this.prenom = prenom;
     this.date_ajout = date_ajout;
+    this.contenu = contenu;
   }
 
   /*
    * Setter
    */
-  public void setId_actualite(int id_actualite) {
-    this.id_actualite = id_actualite;
+  public void setNom(String nom) {
+    this.nom = nom;
   }
 
-  public void setContenu(String contenu) {
-    this.contenu = contenu;
+  public void setPrenom(String prenom) {
+    this.prenom = prenom;
   }
 
   public void setDate_ajout(Date date_ajout) {
     this.date_ajout = date_ajout;
   }
 
+  public void setContenu(String contenu) {
+    this.contenu = contenu;
+  }
+
   /*
    * Getter
    */
-  public int getId_actualite() {
-    return this.id_actualite;
+  public String getNom() {
+    return this.nom;
   }
 
-  public String getContenu() {
-    return this.contenu;
+  public String getPrenom() {
+    return this.prenom;
   }
 
   public Date getDate_ajout() {
     return this.date_ajout;
+  }
+
+  public String getContenu() {
+    return this.contenu;
   }
 }
