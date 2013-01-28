@@ -83,6 +83,8 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else if (redirection.equals("mur")) {
+        ArrayList<Actualite> actus = this.tools.fetchActuMur(p);
+        session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       } else if (redirection.equals("amis")) {

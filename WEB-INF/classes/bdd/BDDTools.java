@@ -33,6 +33,40 @@ public class BDDTools {
     }
   }
 
+  public ArrayList<Actualite> fetchActuMur(Personne p) {
+    this.initialize();
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Date dateMod = null;
+    ArrayList<Actualite> actus = new ArrayList<Actualite>();
+    try {
+      PreparedStatement prep = this.con.prepareStatement(
+          "select p.nom, p.prenom, ac.date_ajout, ac.contenu " +
+          "from actualitees ac " +
+          "join personnes p on p.id_personne = ac.id_personne " +
+          "where p.id_personne = ? " +
+          "order by ac.date_ajout desc");
+      prep.setInt(1, p.getId_personne());
+      this.rs = prep.executeQuery();
+      while (rs.next()) {
+        Actualite actu = new Actualite();
+        actu.setNom(rs.getString("nom"));
+        actu.setPrenom(rs.getString("prenom"));
+        try {
+            dateMod = df.parse(rs.getString("date_ajout"));
+        } catch (ParseException e) {
+          e.printStackTrace();
+        }
+        actu.setDate_ajout(dateMod);
+        actu.setContenu(rs.getString("contenu"));
+        actus.add(actu);
+      }
+      con.close();
+    } catch(SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return actus;
+  }
+
   public ArrayList<Actualite> fetchActualitees(Personne p) {
     this.initialize();
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
