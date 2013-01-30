@@ -79,6 +79,13 @@ public class Controleur extends HttpServlet {
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
+      } else if (redirection.equals("publication")) {
+        Personne p = this.fetchUserDansSession(session);
+        ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
+        this.tools.insertActualite(request.getParameter("contenu"), p.getId_personne());
+        session.setAttribute("actualitees", actus);
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+
       } else if (redirection.equals("mur")) {
         Personne p = this.fetchUserDansSession(session);
         ArrayList<Actualite> actus = this.tools.fetchActuMur(p);
@@ -119,6 +126,9 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else {
+        Personne p = this.fetchUserDansSession(session);
+        ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
+        session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
       }
     }

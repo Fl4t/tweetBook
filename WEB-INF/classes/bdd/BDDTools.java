@@ -289,6 +289,20 @@ public class BDDTools {
     return personnes;
   }
 
+  public void insertActualite(String contenu, int id_personne) {
+    this.initialize();
+    try {
+      PreparedStatement prep = this.con.prepareStatement(
+          "insert into actualitees values (null, ?, datetime(), ?)");
+      prep.setString(1, contenu);
+      prep.setInt(2, id_personne);
+      prep.executeUpdate();
+      con.close();
+    } catch(Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
   public void inscription(Personne p, Authentification a) {
     this.initialize();
     try {
