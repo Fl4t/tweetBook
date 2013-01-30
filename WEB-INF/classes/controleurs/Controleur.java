@@ -71,21 +71,23 @@ public class Controleur extends HttpServlet {
 
     } else {
 
-      Personne p = (Personne) session.getAttribute("personne");
+      this.remoteUserDansSession(request, session);
 
       if (redirection == null) {
+        Personne p = this.fetchUserDansSession(session);
         ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else if (redirection.equals("mur")) {
-        Personne moi = this.tools.fetchById(p.getId_personne());
+        Personne p = this.fetchUserDansSession(session);
         ArrayList<Actualite> actus = this.tools.fetchActuMur(p);
         session.setAttribute("personne", p);
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       } else if (redirection.equals("amis")) {
+        Personne p = this.fetchUserDansSession(session);
         ArrayList<Personne> amis = this.tools.fetchAmis(p);
         session.setAttribute("amis", amis);
         response.sendRedirect(request.getContextPath() + VUE_AMIS);
@@ -101,13 +103,15 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       } else if (redirection.equals("visibilite")) {
+        Personne p = this.fetchUserDansSession(session);
         this.tools.changerVisibilite(p, request.getParameter("visibilite"));
-        this.enregistrerUserDansSession(request, session);
+        this.remoteUserDansSession(request, session);
         response.sendRedirect(request.getContextPath() + VUE_ADMIN);
 
       } else if (redirection.equals("password")) {
+        Personne p = this.fetchUserDansSession(session);
         this.tools.changerMotDePasse(p, request.getParameter("motDePasse2"));
-        this.enregistrerUserDansSession(request, session);
+        this.remoteUserDansSession(request, session);
         response.sendRedirect(request.getContextPath() + VUE_ADMIN);
 
       } else if (redirection.equals("deconnexion")) {
@@ -120,8 +124,12 @@ public class Controleur extends HttpServlet {
     }
   }
 
-  private void enregistrerUserDansSession(HttpServletRequest request, HttpSession session) {
+  private void remoteUserDansSession(HttpServletRequest request, HttpSession session) {
     Personne p = this.tools.fetch(request.getRemoteUser());
     session.setAttribute("personne", p);
+  }
+
+  private Personne fetchUserDansSession(HttpSession session) {
+    return (Personne) session.getAttribute("personne");
   }
 }
