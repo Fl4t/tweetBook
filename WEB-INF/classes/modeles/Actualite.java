@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Actualite {
 
+  private int id_personne;
   private String nom;
   private String prenom;
   private Date date_ajout;
@@ -11,7 +12,7 @@ public class Actualite {
 
   public Actualite() {}
 
-  public Actualite(String nom, String prenom, Date date_ajout, String contenu) {
+  public Actualite(int id_personne, String nom, String prenom, Date date_ajout, String contenu) {
     this.nom = nom;
     this.prenom = prenom;
     this.date_ajout = date_ajout;
@@ -21,6 +22,10 @@ public class Actualite {
   /*
    * Setter
    */
+  public void setId_personne(int id_personne) {
+    this.id_personne = id_personne;
+  }
+
   public void setNom(String nom) {
     this.nom = nom;
   }
@@ -40,6 +45,10 @@ public class Actualite {
   /*
    * Getter
    */
+  public int getId_personne() {
+    return this.id_personne;
+  }
+
   public String getNom() {
     return this.nom;
   }

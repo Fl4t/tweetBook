@@ -25,14 +25,15 @@ public class Recherche extends HttpServlet {
     PrintWriter out = response.getWriter();
     BDDTools modPers = new BDDTools();
     ArrayList<Personne> amisPossibles = modPers.rechercheAmis(p, request.getParameter("la_recherche"));
-    out.println(this.HTMLiser(amisPossibles));
+    out.println(this.HTMLiser(request, amisPossibles));
   }
 
-  public String HTMLiser(ArrayList<Personne> amisPossibles) {
+  public String HTMLiser(HttpServletRequest request, ArrayList<Personne> amisPossibles) {
     String ret = "";
-    ret += "<ul>";
+    ret += "<ul class=\"unstyled\">";
     for (Personne p : amisPossibles) {
-      ret += "<li>" + p.getNom() + " " + p.getPrenom() + "</li>";
+      ret += "<li><a href=\"" + request.getContextPath() + "/index.html?id=" + p.getId_personne() + "\">" +
+        p.getNom() + " " + p.getPrenom() + "</a></li>";
     }
     ret += "</ul>";
     return ret;

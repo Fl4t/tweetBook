@@ -11,7 +11,9 @@
   </a>
   <div class="media-body">
     <h4 class="media-heading" style="text-transform:capitalize;">
-      <c:out value="${actualite.nom}"/> <c:out value="${actualite.prenom}"/>
+      <a href="${pageContext.request.contextPath}/index.html?id=${actualite.id_personne}">
+        <c:out value="${actualite.nom}"/> <c:out value="${actualite.prenom}"/>
+      </a>
     </h4>
     <div class="media">
       <c:out value="${actualite.contenu}"/>

@@ -40,7 +40,7 @@ public class BDDTools {
     ArrayList<Actualite> actus = new ArrayList<Actualite>();
     try {
       PreparedStatement prep = this.con.prepareStatement(
-          "select p.nom, p.prenom, ac.date_ajout, ac.contenu " +
+          "select p.id_personne, p.nom, p.prenom, ac.date_ajout, ac.contenu " +
           "from actualitees ac " +
           "join personnes p on p.id_personne = ac.id_personne " +
           "where p.id_personne = ? " +
@@ -49,6 +49,7 @@ public class BDDTools {
       this.rs = prep.executeQuery();
       while (rs.next()) {
         Actualite actu = new Actualite();
+        actu.setId_personne(rs.getInt("id_personne"));
         actu.setNom(rs.getString("nom"));
         actu.setPrenom(rs.getString("prenom"));
         try {
@@ -74,7 +75,7 @@ public class BDDTools {
     ArrayList<Actualite> actus = new ArrayList<Actualite>();
     try {
       PreparedStatement prep = this.con.prepareStatement(
-      "select distinct p.nom, p.prenom, ac.date_ajout, ac.contenu " +
+      "select distinct p.id_personne, p.nom, p.prenom, ac.date_ajout, ac.contenu " +
       "from actualitees ac " +
       "join personnes p on ac.id_personne = p.id_personne " +
       "join amis am on am.id_personne1 = ? or am.id_personne2 = ? " +
@@ -90,6 +91,7 @@ public class BDDTools {
       this.rs = prep.executeQuery();
       while (rs.next()) {
         Actualite actu = new Actualite();
+        actu.setId_personne(rs.getInt("id_personne"));
         actu.setNom(rs.getString("nom"));
         actu.setPrenom(rs.getString("prenom"));
         try {
@@ -205,6 +207,30 @@ public class BDDTools {
                                 "where login = ?"+
                                 ")");
       prep.setString(1, login);
+      this.rs = prep.executeQuery();
+      while (rs.next()) {
+        p.setId_personne(rs.getInt("id_personne"));
+        p.setNom(rs.getString("nom"));
+        p.setPrenom(rs.getString("prenom"));
+        p.setDate_naissance(rs.getString("date_naissance"));
+        p.setEmail(rs.getString("email"));
+        p.setVisibilite(rs.getString("visibilite"));
+      }
+      con.close();
+    } catch(SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return p;
+  }
+
+  public Personne fetchById(int id) {
+    this.initialize();
+    Personne p = new Personne();
+    try {
+      PreparedStatement prep = this.con.prepareStatement(
+          "SELECT * FROM personnes " +
+          " where id_personne = ?");
+      prep.setInt(1, id);
       this.rs = prep.executeQuery();
       while (rs.next()) {
         p.setId_personne(rs.getInt("id_personne"));

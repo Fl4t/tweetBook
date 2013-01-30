@@ -83,7 +83,9 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else if (redirection.equals("mur")) {
+        Personne moi = this.tools.fetchById(p.getId_personne());
         ArrayList<Actualite> actus = this.tools.fetchActuMur(p);
+        session.setAttribute("personne", p);
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_MUR);
 
@@ -94,6 +96,13 @@ public class Controleur extends HttpServlet {
 
       } else if (redirection.equals("admin")) {
         response.sendRedirect(request.getContextPath() + VUE_ADMIN);
+
+      } else if (redirection.matches("\\d{1,}")) {
+        Personne amisVisite = this.tools.fetchById(Integer.parseInt(redirection));
+        ArrayList<Actualite> actus = this.tools.fetchActuMur(amisVisite);
+        session.setAttribute("personne", amisVisite);
+        session.setAttribute("actualitees", actus);
+        response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       } else if (redirection.equals("visibilite")) {
         this.tools.changerVisibilite(p, request.getParameter("visibilite"));

@@ -33,9 +33,13 @@ $(document).ready(function() {
 
         <h1>Liste des amis</h1>
 
-        <ul>
+        <ul class="unstyled">
         <c:forEach items="${amis}" var="ami">
-          <li><c:out value="${ami.nom}"/> <c:out value="${ami.prenom}"/></li>
+          <li>
+          <a href="${pageContext.request.contextPath}/index.html?id=${ami.id_personne}">
+            <c:out value="${ami.nom}"/> <c:out value="${ami.prenom}"/>
+          </a>
+          </li>
         </c:forEach>
         </ul>
 
