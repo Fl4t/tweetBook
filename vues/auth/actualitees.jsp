@@ -6,7 +6,7 @@
 <c:forEach items="${actualitees}" var="actualite">
 <ul class="media-list">
   <li class="media">
-  <a class="pull-left" href="#">
+  <a class="pull-left" href="${pageContext.request.contextPath}/index.html?id=${actualite.id_personne}">
     <img class= "media-object" src="http://fakeimg.pl/64x64/">
   </a>
   <div class="media-body">
