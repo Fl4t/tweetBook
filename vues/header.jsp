@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+import="modeles.Personne, modeles.Actualite, bdd.BDDTools, java.util.ArrayList" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML>
 <html lang="fr">
@@ -9,6 +10,18 @@
     <link href="${pageContext.request.contextPath}/ressources/css/datepicker.css" rel="stylesheet" media="screen">
   </head>
   <body>
+
+    <%
+    // pour la première connexion
+      if (request.getRemoteUser() != null && session.getAttribute("personne") == null) {
+        BDDTools tools = new BDDTools();
+        Personne p = tools.fetch(request.getRemoteUser());
+        ArrayList<Actualite> actus = tools.fetchActualitees(p);
+        session.setAttribute("actualitees", actus);
+        session.setAttribute("personne", p);
+      }
+    %>
+
     <a href="https://github.com/Fl4t/tweetbook">
       <img style="position: absolute; top: 41px; right: 0; border: 0;"
       src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"

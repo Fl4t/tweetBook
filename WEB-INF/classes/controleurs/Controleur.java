@@ -32,10 +32,6 @@ public class Controleur extends HttpServlet {
     HttpSession session = request.getSession(true);
     String redirection = request.getParameter("id");
 
-    if (request.getUserPrincipal() != null) {
-      this.enregistrerUserDansSession(request, session);
-    }
-
     //////////////////////////////////
     //// Personne non-authentifié ////
     //////////////////////////////////
@@ -125,9 +121,7 @@ public class Controleur extends HttpServlet {
   }
 
   private void enregistrerUserDansSession(HttpServletRequest request, HttpSession session) {
-    Principal principal = request.getUserPrincipal();
-    String name = principal.getName();
-    Personne p = this.tools.fetch(name);
+    Personne p = this.tools.fetch(request.getRemoteUser());
     session.setAttribute("personne", p);
   }
 }
