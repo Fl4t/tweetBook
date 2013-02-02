@@ -22,7 +22,7 @@
 
     <form class="form-horizontal" method="get"
       action="${pageContext.request.contextPath}/index.html">
-      <input name="id" type="hidden" name="id" value="enregistrer" />
+      <input type="hidden" name="id" value="enregistrer" />
       <div class="control-group">
         <label class="control-label" for="inputLogin">Identifiant</label>
         <div class="controls">

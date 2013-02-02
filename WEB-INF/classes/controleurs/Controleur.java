@@ -71,30 +71,26 @@ public class Controleur extends HttpServlet {
 
     } else {
 
-      this.remoteUserDansSession(request, session);
+      Personne p = this.fetchUserDansSession(session);
 
       if (redirection == null) {
-        Personne p = this.fetchUserDansSession(session);
         ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else if (redirection.equals("publication")) {
-        Personne p = this.fetchUserDansSession(session);
         ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
         this.tools.insertActualite(request.getParameter("contenu"), p.getId_personne());
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else if (redirection.equals("mur")) {
-        Personne p = this.fetchUserDansSession(session);
         ArrayList<Actualite> actus = this.tools.fetchActuMur(p);
         session.setAttribute("personne", p);
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       } else if (redirection.equals("amis")) {
-        Personne p = this.fetchUserDansSession(session);
         ArrayList<Personne> amis = this.tools.fetchAmis(p);
         session.setAttribute("amis", amis);
         response.sendRedirect(request.getContextPath() + VUE_AMIS);
@@ -110,13 +106,11 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_MUR);
 
       } else if (redirection.equals("visibilite")) {
-        Personne p = this.fetchUserDansSession(session);
         this.tools.changerVisibilite(p, request.getParameter("visibilite"));
         this.remoteUserDansSession(request, session);
         response.sendRedirect(request.getContextPath() + VUE_ADMIN);
 
       } else if (redirection.equals("password")) {
-        Personne p = this.fetchUserDansSession(session);
         this.tools.changerMotDePasse(p, request.getParameter("motDePasse2"));
         this.remoteUserDansSession(request, session);
         response.sendRedirect(request.getContextPath() + VUE_ADMIN);
@@ -126,7 +120,6 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else {
-        Personne p = this.fetchUserDansSession(session);
         ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
