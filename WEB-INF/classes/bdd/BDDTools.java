@@ -289,6 +289,39 @@ public class BDDTools {
     return personnes;
   }
 
+  private String capitalize(String line) {
+    return Character.toUpperCase(line.charAt(0)) + line.substring(1);
+  }
+
+  public void ajouterAmi(Personne moi, Personne nouvelAmi) {
+    this.insertActualite(
+      this.capitalize(moi.getNom()) + " " + this.capitalize(moi.getPrenom()) +
+      " est " + "maintenant amis avec " + this.capitalize(nouvelAmi.getNom()) +
+      " " + this.capitalize(nouvelAmi.getPrenom()), moi.getId_personne()
+      );
+    this.insertActualite(
+      this.capitalize(nouvelAmi.getNom()) + " " + this.capitalize(nouvelAmi.getPrenom()) +
+        " est " + "maintenant amis avec " + this.capitalize(moi.getNom()) + " " +
+        this.capitalize(moi.getPrenom()), nouvelAmi.getId_personne()
+      );
+    this.initialize();
+    try {
+      PreparedStatement prep = this.con.prepareStatement(
+        "insert into amis values (?, ?, datetime('now'))");
+      prep.setInt(1, moi.getId_personne());
+      prep.setInt(2, nouvelAmi.getId_personne());
+      prep.executeUpdate();
+      PreparedStatement prep2 = this.con.prepareStatement(
+        "insert into amis values (?, ?, datetime('now'))");
+      prep.setInt(1, nouvelAmi.getId_personne());
+      prep2.setInt(2, moi.getId_personne());
+      prep2.executeUpdate();
+      con.close();
+    } catch(Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
   public void insertActualite(String contenu, int id_personne) {
     this.initialize();
     try {

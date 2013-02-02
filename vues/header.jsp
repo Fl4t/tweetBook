@@ -32,7 +32,7 @@ import="modeles.Personne, modeles.Actualite, bdd.BDDTools, java.util.ArrayList" 
         <a class="brand" href="${pageContext.request.contextPath}/index.html">TweetBook</a>
         <ul class="nav">
           <li><a href="${pageContext.request.contextPath}/index.html">Fil d'actualitées</a></li>
-          <li><a href="${pageContext.request.contextPath}/index.html?id=mur">Mur</a></li>
+          <li><a href="${pageContext.request.contextPath}/index.html?id=${personne.id_personne}">Mur</a></li>
           <li><a href="${pageContext.request.contextPath}/index.html?id=amis">Amis</a></li>
         </ul>
         <c:if test="${!empty sessionScope.personne}">

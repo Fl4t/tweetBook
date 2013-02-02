@@ -30,12 +30,12 @@ public class Recherche extends HttpServlet {
 
   public String HTMLiser(HttpServletRequest request, ArrayList<Personne> amisPossibles) {
     String ret = "";
-    ret += "<ul class=\"unstyled\">";
     for (Personne p : amisPossibles) {
-      ret += "<li><a href=\"" + request.getContextPath() + "/index.html?id=" + p.getId_personne() + "\">" +
-        p.getNom() + " " + p.getPrenom() + "</a></li>";
+      ret += "<a href=\"" + request.getContextPath() + "/index.html?id=" + p.getId_personne() + "\">" +
+        p.getNom() + " " + p.getPrenom() + "</a> ";
+      ret += "<a href=\"" + request.getContextPath() + "/index.html?id=ajouter&new=" +
+        p.getId_personne() +"&reload=0\" class=\"btn btn-primary btn-mini\">Ajouter aux amis</a>";
     }
-    ret += "</ul>";
     return ret;
   }
 }

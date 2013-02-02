@@ -84,12 +84,6 @@ public class Controleur extends HttpServlet {
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
-      } else if (redirection.equals("mur")) {
-        ArrayList<Actualite> actus = this.tools.fetchActuMur(p);
-        session.setAttribute("personne", p);
-        session.setAttribute("actualitees", actus);
-        response.sendRedirect(request.getContextPath() + VUE_MUR);
-
       } else if (redirection.equals("amis")) {
         ArrayList<Personne> amis = this.tools.fetchAmis(p);
         session.setAttribute("amis", amis);
@@ -99,11 +93,26 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_ADMIN);
 
       } else if (redirection.matches("\\d{1,}")) {
+        ArrayList<Personne> amis = this.tools.fetchAmis(p);
         Personne amisVisite = this.tools.fetchById(Integer.parseInt(redirection));
         ArrayList<Actualite> actus = this.tools.fetchActuMur(amisVisite);
-        session.setAttribute("personne", amisVisite);
+        session.setAttribute("ami", amisVisite);
+        session.setAttribute("amis", amis);
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_MUR);
+
+      } else if (redirection.equals("ajouter")) {
+        Personne nouvelAmi = this.tools.fetchById(Integer.parseInt(request.getParameter("new")));
+        this.tools.ajouterAmi(p, nouvelAmi);
+        ArrayList<Personne> amis = this.tools.fetchAmis(p);
+        ArrayList<Actualite> actus = this.tools.fetchActuMur(nouvelAmi);
+        session.setAttribute("ami", nouvelAmi);
+        session.setAttribute("amis", amis);
+        session.setAttribute("actualitees", actus);
+        if (request.getParameter("reload").equals("1"))
+          response.sendRedirect(request.getContextPath() + VUE_MUR);
+        else
+          response.sendRedirect(request.getContextPath() + VUE_AMIS);
 
       } else if (redirection.equals("visibilite")) {
         this.tools.changerVisibilite(p, request.getParameter("visibilite"));
