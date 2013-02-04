@@ -59,7 +59,14 @@
       </a>
     </h4>
     <div class="media">
-      <c:out value="${actualite.contenu}"/>
+      <c:choose>
+        <c:when test="${actualite.type_actu == 'amis'}">
+          <c:out value="${actualite.contenu}" escapeXml="false" />
+        </c:when>
+        <c:otherwise>
+          <c:out value="${actualite.contenu}" />
+        </c:otherwise>
+      </c:choose>
     </div>
     <small class="muted">
       le <fmt:formatDate pattern="dd/MM/yyy 'à' HH:mm:ss" value="${actualite.date_ajout}"/>

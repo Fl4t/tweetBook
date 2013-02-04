@@ -6,13 +6,16 @@ public class Actualite {
 
   private int id_personne;
   private String nom;
+  private String type_actu;
   private String prenom;
   private Date date_ajout;
   private String contenu;
 
   public Actualite() {}
 
-  public Actualite(int id_personne, String nom, String prenom, Date date_ajout, String contenu) {
+  public Actualite(int id_personne, String type_actu, String nom, String prenom, Date date_ajout, String contenu) {
+    this.id_personne = id_personne;
+    this.type_actu = type_actu;
     this.nom = nom;
     this.prenom = prenom;
     this.date_ajout = date_ajout;
@@ -24,6 +27,10 @@ public class Actualite {
    */
   public void setId_personne(int id_personne) {
     this.id_personne = id_personne;
+  }
+
+  public void setType_actu(String type_actu) {
+    this.type_actu = type_actu;
   }
 
   public void setNom(String nom) {
@@ -47,6 +54,10 @@ public class Actualite {
    */
   public int getId_personne() {
     return this.id_personne;
+  }
+
+  public String getType_actu() {
+    return this.type_actu;
   }
 
   public String getNom() {

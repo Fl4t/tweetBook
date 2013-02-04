@@ -1,5 +1,6 @@
 package bdd;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import javax.naming.NamingException;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class BDDTools {
     ArrayList<Actualite> actus = new ArrayList<Actualite>();
     try {
       PreparedStatement prep = this.con.prepareStatement(
-          "select p.id_personne, p.nom, p.prenom, ac.date_ajout, ac.contenu " +
+          "select p.id_personne, ac.type_actu, p.nom, p.prenom, ac.date_ajout, ac.contenu " +
           "from actualitees ac " +
           "join personnes p on p.id_personne = ac.id_personne " +
           "where p.id_personne = ? " +
@@ -50,6 +51,7 @@ public class BDDTools {
       while (rs.next()) {
         Actualite actu = new Actualite();
         actu.setId_personne(rs.getInt("id_personne"));
+        actu.setType_actu(rs.getString("type_actu"));
         actu.setNom(rs.getString("nom"));
         actu.setPrenom(rs.getString("prenom"));
         try {
@@ -75,7 +77,7 @@ public class BDDTools {
     ArrayList<Actualite> actus = new ArrayList<Actualite>();
     try {
       PreparedStatement prep = this.con.prepareStatement(
-      "select distinct p.id_personne, p.nom, p.prenom, ac.date_ajout, ac.contenu " +
+      "select distinct p.id_personne, ac.type_actu, p.nom, p.prenom, ac.date_ajout, ac.contenu " +
       "from actualitees ac " +
       "join personnes p on ac.id_personne = p.id_personne " +
       "join amis am on am.id_personne1 = ? or am.id_personne2 = ? " +
@@ -92,6 +94,7 @@ public class BDDTools {
       while (rs.next()) {
         Actualite actu = new Actualite();
         actu.setId_personne(rs.getInt("id_personne"));
+        actu.setType_actu(rs.getString("type_actu"));
         actu.setNom(rs.getString("nom"));
         actu.setPrenom(rs.getString("prenom"));
         try {
@@ -293,16 +296,22 @@ public class BDDTools {
     return Character.toUpperCase(line.charAt(0)) + line.substring(1);
   }
 
-  public void ajouterAmi(Personne moi, Personne nouvelAmi) {
+  public void ajouterAmi(Personne moi, Personne nouvelAmi, HttpServletRequest request) {
     this.insertActualite(
-      this.capitalize(moi.getNom()) + " " + this.capitalize(moi.getPrenom()) +
-      " est " + "maintenant amis avec " + this.capitalize(nouvelAmi.getNom()) +
-      " " + this.capitalize(nouvelAmi.getPrenom()), moi.getId_personne()
+      "amis",
+      "<a href=\"" + request.getContextPath() + "/index.html?id=" + moi.getId_personne() + "\">" +
+      this.capitalize(moi.getNom()) + " " + this.capitalize(moi.getPrenom()) + "</a>" +
+      " est " + "maintenant amis avec <a href=\"" + request.getContextPath() + "/index.html?id=" +
+      nouvelAmi.getId_personne() + "\">" + this.capitalize(nouvelAmi.getNom()) +
+      " " + this.capitalize(nouvelAmi.getPrenom()) + "</a>", moi.getId_personne()
       );
     this.insertActualite(
-      this.capitalize(nouvelAmi.getNom()) + " " + this.capitalize(nouvelAmi.getPrenom()) +
-        " est " + "maintenant amis avec " + this.capitalize(moi.getNom()) + " " +
-        this.capitalize(moi.getPrenom()), nouvelAmi.getId_personne()
+      "amis",
+      "<a href=\"" + request.getContextPath() + "/index.html?id=" + nouvelAmi.getId_personne() + "\">" +
+      this.capitalize(nouvelAmi.getNom()) + " " + this.capitalize(nouvelAmi.getPrenom()) + "</a>" +
+      " est " + "maintenant amis avec <a href=\"" + request.getContextPath() + "/index.html?id=" +
+      moi.getId_personne() + "\">" + this.capitalize(moi.getNom()) +
+      " " + this.capitalize(moi.getPrenom()) + "</a>", nouvelAmi.getId_personne()
       );
     this.initialize();
     try {
@@ -322,13 +331,14 @@ public class BDDTools {
     }
   }
 
-  public void insertActualite(String contenu, int id_personne) {
+  public void insertActualite(String type_actu, String contenu, int id_personne) {
     this.initialize();
     try {
       PreparedStatement prep = this.con.prepareStatement(
-          "insert into actualitees values (null, ?, datetime(), ?)");
-      prep.setString(1, contenu);
-      prep.setInt(2, id_personne);
+          "insert into actualitees values (null, ?, ?, datetime(), ?)");
+      prep.setString(1, type_actu);
+      prep.setString(2, contenu);
+      prep.setInt(3, id_personne);
       prep.executeUpdate();
       con.close();
     } catch(Exception e) {

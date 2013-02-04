@@ -79,7 +79,7 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else if (redirection.equals("publication")) {
-        this.tools.insertActualite(request.getParameter("contenu"), p.getId_personne());
+        this.tools.insertActualite("message", request.getParameter("contenu"), p.getId_personne());
         ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
@@ -103,7 +103,7 @@ public class Controleur extends HttpServlet {
 
       } else if (redirection.equals("ajouter")) {
         Personne nouvelAmi = this.tools.fetchById(Integer.parseInt(request.getParameter("new")));
-        this.tools.ajouterAmi(p, nouvelAmi);
+        this.tools.ajouterAmi(p, nouvelAmi, request);
         ArrayList<Personne> amis = this.tools.fetchAmis(p);
         ArrayList<Actualite> actus = this.tools.fetchActuMur(nouvelAmi);
         session.setAttribute("ami", nouvelAmi);
