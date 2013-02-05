@@ -55,9 +55,13 @@
       <div class="control-group">
         <label class="control-label" for="inputEmail">Email</label>
         <div class="controls">
-          <input name="inputEmail" type="email" id="inputEmail" placeholder="Email" required>
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-envelope"></i></span>
+            <input name="inputEmail" class="span2" id="inputEmail" type="text" placeholder="Email" required>
+          </div>
         </div>
       </div>
+
       <div class="control-group">
         <label class="control-label" for="inputPassword">Mot de passe</label>
         <div class="controls">
