@@ -27,6 +27,8 @@ public class BDDTools {
       Context envCtx = (Context) initCtx.lookup("java:comp/env");
       DataSource ds = (DataSource) envCtx.lookup("auth");
       this.con = ds.getConnection();
+      PreparedStatement pragma = this.con.prepareStatement("PRAGMA foreign_keys = ON");
+      pragma.executeQuery();
     } catch(NamingException e) {
       e.getStackTrace();
     } catch(SQLException e2) {
