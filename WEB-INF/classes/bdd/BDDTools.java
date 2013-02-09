@@ -313,7 +313,7 @@ public class BDDTools {
       prep.executeUpdate();
       PreparedStatement prep2 = this.con.prepareStatement(
         "insert into amis values (?, ?, datetime('now'))");
-      prep.setInt(1, nouvelAmi.getId_personne());
+      prep2.setInt(1, nouvelAmi.getId_personne());
       prep2.setInt(2, moi.getId_personne());
       prep2.executeUpdate();
       con.close();

@@ -34,7 +34,7 @@ public class Recherche extends HttpServlet {
       ret += "<a href=\"" + request.getContextPath() + "/index.html?id=" + p.getId_personne() + "\">" +
         p.getNom() + " " + p.getPrenom() + "</a> ";
       ret += "<a href=\"" + request.getContextPath() + "/index.html?id=ajouter&new=" +
-        p.getId_personne() +"&reload=0\" class=\"btn btn-primary btn-mini\">Ajouter aux amis</a>";
+        p.getId_personne() +"&reload=0\" class=\"btn btn-primary btn-mini\">Ajouter aux amis</a><br />";
     }
     return ret;
   }

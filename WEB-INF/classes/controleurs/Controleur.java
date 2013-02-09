@@ -79,8 +79,8 @@ public class Controleur extends HttpServlet {
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
       } else if (redirection.equals("publication")) {
-        ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
         this.tools.insertActualite(request.getParameter("contenu"), p.getId_personne());
+        ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
 
