@@ -101,6 +101,24 @@ public class Controleur extends HttpServlet {
         session.setAttribute("actualitees", actus);
         response.sendRedirect(request.getContextPath() + VUE_MUR);
 
+      } else if (redirection.equals("like")) {
+        String pers = request.getParameter("personne");
+        String actu = request.getParameter("actu");
+        String notation = request.getParameter("notation");
+        this.tools.updateLike(pers, actu, notation);
+        ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
+        session.setAttribute("actualitees", actus);
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+
+      } else if (redirection.equals("unlike")) {
+        String pers = request.getParameter("personne");
+        String actu = request.getParameter("actu");
+        String notation = request.getParameter("notation");
+        this.tools.updateUnlike(pers, actu, notation);
+        ArrayList<Actualite> actus = this.tools.fetchActualitees(p);
+        session.setAttribute("actualitees", actus);
+        response.sendRedirect(request.getContextPath() + VUE_ACTUALITE);
+
       } else if (redirection.equals("ajouter")) {
         Personne nouvelAmi = this.tools.fetchById(Integer.parseInt(request.getParameter("new")));
         this.tools.ajouterAmi(p, nouvelAmi, request);

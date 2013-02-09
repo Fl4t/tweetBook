@@ -5,6 +5,10 @@ import java.util.Date;
 public class Actualite {
 
   private int id_personne;
+  private int id_actualite;
+  private int nbLike;
+  private int nbUnlike;
+  private int notation;
   private String nom;
   private String type_actu;
   private String prenom;
@@ -13,7 +17,16 @@ public class Actualite {
 
   public Actualite() {}
 
-  public Actualite(int id_personne, String type_actu, String nom, String prenom, Date date_ajout, String contenu) {
+  public Actualite(
+      int id_actualite,
+      int id_personne,
+      String type_actu,
+      String nom,
+      String prenom,
+      Date date_ajout,
+      String contenu)
+  {
+    this.id_actualite = id_actualite;
     this.id_personne = id_personne;
     this.type_actu = type_actu;
     this.nom = nom;
@@ -25,8 +38,24 @@ public class Actualite {
   /*
    * Setter
    */
+  public void setId_actualite(int id_actualite) {
+    this.id_actualite = id_actualite;
+  }
+
   public void setId_personne(int id_personne) {
     this.id_personne = id_personne;
+  }
+
+  public void setNbLike(int nbLike) {
+    this.nbLike = nbLike;
+  }
+
+  public void setNbUnlike(int nbUnlike) {
+    this.nbUnlike = nbUnlike;
+  }
+
+  public void setNotation(int notation) {
+    this.notation = notation;
   }
 
   public void setType_actu(String type_actu) {
@@ -52,8 +81,24 @@ public class Actualite {
   /*
    * Getter
    */
+  public int getId_actualite() {
+    return this.id_actualite;
+  }
+
   public int getId_personne() {
     return this.id_personne;
+  }
+
+  public int getNbLike() {
+    return this.nbLike;
+  }
+
+  public int getNbUnlike() {
+    return this.nbUnlike;
+  }
+
+  public int getNotation() {
+    return this.notation;
   }
 
   public String getType_actu() {
