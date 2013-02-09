@@ -452,6 +452,10 @@ public class BDDTools {
       prep2.setString(2, a.getPassword());
       prep2.setString(3, a.getRole());
       prep2.executeUpdate();
+      PreparedStatement prep3 = this.con.prepareStatement(
+          "insert into amis values ((select max(id_personne) from personnes)," +
+          " (select max(id_personne) from personnes), '2003-02-04 23:46:52')");
+      prep3.executeUpdate();
       con.close();
     } catch(Exception e) {
       System.out.println(e.getMessage());
