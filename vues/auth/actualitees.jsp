@@ -3,16 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:include page="../header.jsp"/>
 
-<form action="${pageContext.request.contextPath}/index.html"
-  method="get" accept-charset="utf-8">
-  <input type="hidden" name="id" value="publication" />
-  <input type="hidden" name="endroit" value="actualitees" />
-  <textarea class="input-xxlarge" rows="3" name="contenu" placeholder="Quoi de neuf ?"></textarea><br />
-  <input class="btn btn-primary" type="submit" id="publier" value="Publier" /><br />
-</form>
-
-<hr />
-
 <c:forEach items="${actualitees}" var="actualite">
 <ul class="media-list">
   <li class="media">

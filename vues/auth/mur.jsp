@@ -33,6 +33,17 @@
 
 </c:if>
 
+<c:if test="${ami.id_personne == personne.id_personne}">
+
+  <form action="${pageContext.request.contextPath}/index.html"
+    method="get" accept-charset="utf-8">
+    <input type="hidden" name="id" value="publication" />
+    <textarea class="input-xxlarge" rows="3" name="contenu" placeholder="Quoi de neuf ?"></textarea><br />
+    <input class="btn btn-primary" type="submit" id="publier" value="Publier" /><br />
+  </form>
+
+</c:if>
+
 <hr />
 
 <c:forEach items="${actualitees}" var="actualite">
