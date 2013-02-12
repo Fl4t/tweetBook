@@ -10,7 +10,7 @@ $(document).ready(function() {
     var champ_de_recherche = $("#nom").val();
     if (champ_de_recherche != "") {
       var request = $.ajax({
-        url: "/tweetBook/recherche.html",
+        url: "${pageContext.request.contextPath}/recherche.html",
         type: "GET",
         data: {la_recherche : champ_de_recherche},
         dataType: "html"
